@@ -452,42 +452,62 @@
     text-align: center;
   }
 
+  /* ---------- ACCORDION (primary view at all screen sizes) ---------- */
+  .bh-mobile-section {
+    background: var(--bh-card);
+    border: 1px solid var(--bh-border);
+    border-left: 5px solid var(--row-color, var(--bh-purple));
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: var(--bh-shadow);
+  }
+  .bh-mobile-section-header {
+    padding: 16px 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; background: white; border: none;
+    width: 100%; text-align: left; font-family: inherit;
+    transition: background 0.15s ease;
+  }
+  .bh-mobile-section-header:hover { background: var(--bh-bg); }
+  .bh-mobile-section-title { font-size: 16px; font-weight: 700; color: var(--bh-ink); margin: 0 0 2px; }
+  .bh-mobile-section-sub { font-size: 13px; color: var(--bh-ink-soft); margin: 0; }
+  .bh-chevron { flex-shrink: 0; transition: transform 0.2s ease; }
+  .bh-mobile-section.is-open .bh-chevron { transform: rotate(180deg); }
+  .bh-mobile-section-body { display: none; padding: 0 20px 20px; }
+  .bh-mobile-section.is-open .bh-mobile-section-body { display: block; }
+  .bh-mobile-cat { margin-top: 16px; }
+  .bh-mobile-cat-label {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--bh-ink-soft); margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--bh-border);
+  }
+  .bh-mobile-cat-roles { display: flex; flex-direction: column; gap: 6px; }
+
+  /* On wider screens, lay out the four career-area columns side-by-side
+     inside each expanded accordion section */
+  @media (min-width: 700px) {
+    .bh-mobile-section-body { padding: 0 20px 24px; }
+    .bh-section-cats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .bh-mobile-cat { margin-top: 8px; }
+  }
+  @media (min-width: 1000px) {
+    .bh-section-cats {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+  }
+
   @media (max-width: 880px) {
     .bh-pathways { padding: 16px 12px; }
     .bh-title { font-size: 22px; }
     .bh-subtitle { font-size: 14px; }
-    .bh-grid { display: block; background: transparent; border: none; box-shadow: none; }
-    .bh-corner, .bh-col-header { display: none; }
-
-    .bh-mobile-section {
-      background: var(--bh-card);
-      border: 1px solid var(--bh-border);
-      border-left: 5px solid var(--row-color, var(--bh-purple));
-      border-radius: 10px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      box-shadow: var(--bh-shadow);
-    }
-    .bh-mobile-section-header {
-      padding: 14px 16px; cursor: pointer;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 8px; background: white; border: none;
-      width: 100%; text-align: left; font-family: inherit;
-    }
-    .bh-mobile-section-header:hover { background: var(--bh-bg); }
-    .bh-mobile-section-title { font-size: 15px; font-weight: 700; color: var(--bh-ink); margin: 0 0 2px; }
-    .bh-mobile-section-sub { font-size: 12px; color: var(--bh-ink-soft); margin: 0; }
-    .bh-chevron { flex-shrink: 0; transition: transform 0.2s ease; }
-    .bh-mobile-section.is-open .bh-chevron { transform: rotate(180deg); }
-    .bh-mobile-section-body { display: none; padding: 0 16px 16px; }
-    .bh-mobile-section.is-open .bh-mobile-section-body { display: block; }
-    .bh-mobile-cat { margin-top: 12px; }
-    .bh-mobile-cat-label {
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.06em;
-      color: var(--bh-ink-soft); margin-bottom: 6px;
-    }
-    .bh-mobile-cat-roles { display: flex; flex-direction: column; gap: 6px; }
     .bh-funding-grid { grid-template-columns: 1fr; }
     .bh-stats { grid-template-columns: repeat(2, 1fr); }
     .bh-detail-header { padding: 16px; }
@@ -495,11 +515,8 @@
     .bh-detail-title { font-size: 18px; }
   }
 
-  .bh-mobile-only { display: none; }
-  @media (max-width: 880px) {
-    .bh-desktop-only { display: none; }
-    .bh-mobile-only { display: block; }
-  }
+  /* Hide the old desktop grid at all sizes — accordion is now primary */
+  .bh-desktop-only { display: none; }
 </style>
 </head>
 <body>
@@ -528,53 +545,8 @@
     <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#16A34A"></span> Advanced Degree</div>
   </div>
 
-  <!-- DESKTOP GRID -->
-  <div class="bh-grid bh-desktop-only" role="table" aria-label="Behavioral health career pathways">
-    <div class="bh-corner">Education Level ↓ / Area →</div>
-    <div class="bh-col-header" data-col="counseling">Social Work<br>&amp; Crisis</div>
-    <div class="bh-col-header" data-col="psychology">Psychiatry</div>
-    <div class="bh-col-header" data-col="nursing">Nursing</div>
-    <div class="bh-col-header" data-col="disability">Disability Services</div>
-
-    <div class="bh-row-header" style="--row-color: #6B46C1">
-      <span class="bh-row-header-label">HS, Certifications &amp; Credentials</span>
-      <span class="bh-row-header-sub">Entry level — start after high school</span>
-    </div>
-    <div class="bh-cell" data-col="counseling" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-counseling"></div>
-    <div class="bh-cell" data-col="psychology" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-psychology"></div>
-    <div class="bh-cell" data-col="nursing" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-nursing"></div>
-    <div class="bh-cell" data-col="disability" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-disability"></div>
-
-    <div class="bh-row-header is-lived" style="--row-color: #F59E0B">
-      <span class="bh-row-header-label">Lived Experience</span>
-      <span class="bh-row-header-sub">Personal recovery experience as a strength</span>
-    </div>
-    <div class="bh-cell is-lived" data-col="counseling" style="--row-color: #F59E0B; --row-color-soft: #FEF3C7" id="cell-le-counseling"></div>
-    <div class="bh-cell is-lived is-empty" data-col="psychology"></div>
-    <div class="bh-cell is-lived is-empty" data-col="nursing"></div>
-    <div class="bh-cell is-lived is-empty" data-col="disability"></div>
-
-    <div class="bh-row-header" style="--row-color: #3B5BA9">
-      <span class="bh-row-header-label">Associates, Bachelors</span>
-      <span class="bh-row-header-sub">2- and 4-year degrees</span>
-    </div>
-    <div class="bh-cell" data-col="counseling" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-counseling"></div>
-    <div class="bh-cell" data-col="psychology" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-psychology"></div>
-    <div class="bh-cell" data-col="nursing" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-nursing"></div>
-    <div class="bh-cell" data-col="disability" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-disability"></div>
-
-    <div class="bh-row-header" style="--row-color: #16A34A">
-      <span class="bh-row-header-label">Advanced Degree</span>
-      <span class="bh-row-header-sub">Master's, doctoral, licensure</span>
-    </div>
-    <div class="bh-cell" data-col="counseling" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-counseling"></div>
-    <div class="bh-cell" data-col="psychology" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-psychology"></div>
-    <div class="bh-cell" data-col="nursing" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-nursing"></div>
-    <div class="bh-cell" data-col="disability" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-disability"></div>
-  </div>
-
-  <!-- MOBILE ACCORDION -->
-  <div class="bh-mobile-only" id="bh-mobile-container"></div>
+  <!-- ACCORDION (primary view at all screen sizes) -->
+  <div id="bh-mobile-container"></div>
 
   <!-- DETAIL PANEL (rendered dynamically) -->
   <div id="bh-detail-container"></div>
@@ -796,7 +768,8 @@
           '</div>' +
           '<svg class="bh-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
         '</button>' +
-        '<div class="bh-mobile-section-body">';
+        '<div class="bh-mobile-section-body">' +
+          '<div class="bh-section-cats">';
 
       Object.keys(rowRoles).forEach(function(col) {
         html += '<div class="bh-mobile-cat" data-col="' + col + '">' +
@@ -807,7 +780,7 @@
         '</div>';
       });
 
-      html += '</div></div>';
+      html += '</div></div></div>';
     });
     mobile.innerHTML = html;
 
@@ -828,13 +801,6 @@
       tabs.forEach(function(t) {
         t.classList.toggle('is-active', t === tab);
         t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
-      });
-
-      document.querySelectorAll('.bh-grid [data-col]').forEach(function(el) {
-        const match = filter === 'all' || el.getAttribute('data-col') === filter;
-        el.style.opacity = match ? '1' : '0.25';
-        el.style.transition = 'opacity 0.2s ease';
-        el.style.pointerEvents = match ? 'auto' : 'none';
       });
 
       document.querySelectorAll('.bh-mobile-cat').forEach(function(el) {
