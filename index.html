@@ -30,7 +30,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: var(--bh-ink);
     line-height: 1.5;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 24px 16px;
     box-sizing: border-box;
@@ -486,22 +486,10 @@
   }
   .bh-mobile-cat-roles { display: flex; flex-direction: column; gap: 6px; }
 
-  /* On wider screens, lay out the four career-area columns side-by-side
-     inside each expanded accordion section */
+  /* On all screen sizes, career-area sections stack vertically inside
+     each expanded accordion section. Single-column for clean readability. */
   @media (min-width: 700px) {
     .bh-mobile-section-body { padding: 0 20px 24px; }
-    .bh-section-cats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    .bh-mobile-cat { margin-top: 8px; }
-  }
-  @media (min-width: 1000px) {
-    .bh-section-cats {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
   }
 
   @media (max-width: 880px) {
