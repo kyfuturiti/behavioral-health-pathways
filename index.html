@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kentucky Behavioral Health Career Pathways</title>
+<style>
+  /* ============================================================================
+     FUTURITI EMBED — KENTUCKY BEHAVIORAL HEALTH CAREER PATHWAYS
+     All styles scoped under .bh-pathways to avoid host-page conflicts.
+     SOC mappings: provided by Beth Kuhn, KY DBHDID (March 2026)
+     Occupation data: Futuriti CCAP_Occupations dataset (April 27, 2026)
+  ============================================================================ */
+
+  .bh-pathways {
+    --bh-purple: #6B46C1;
+    --bh-blue: #3B5BA9;
+    --bh-green: #16A34A;
+    --bh-lime: #A3E635;
+    --bh-orange: #F59E0B;
+    --bh-ink: #1F2937;
+    --bh-ink-soft: #4B5563;
+    --bh-ink-faint: #9CA3AF;
+    --bh-border: #E5E7EB;
+    --bh-bg: #FAFAF9;
+    --bh-card: #FFFFFF;
+    --bh-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    --bh-shadow-lg: 0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.05);
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--bh-ink);
+    line-height: 1.5;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    box-sizing: border-box;
+  }
+
+  .bh-pathways *, .bh-pathways *::before, .bh-pathways *::after { box-sizing: border-box; }
+
+  .bh-header { margin-bottom: 24px; }
+  .bh-eyebrow {
+    display: inline-block;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--bh-purple);
+    background: #F3E8FF;
+    padding: 4px 10px; border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .bh-title {
+    font-size: 28px; font-weight: 800;
+    margin: 0 0 8px;
+    color: var(--bh-ink);
+    letter-spacing: -0.02em;
+  }
+  .bh-subtitle {
+    font-size: 16px;
+    color: var(--bh-ink-soft);
+    margin: 0; max-width: 720px;
+  }
+
+  .bh-controls {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 20px 0 16px; align-items: center;
+  }
+  .bh-controls-label {
+    font-size: 13px; font-weight: 600;
+    color: var(--bh-ink-soft); margin-right: 4px;
+  }
+  .bh-tab {
+    background: var(--bh-card);
+    border: 1.5px solid var(--bh-border);
+    color: var(--bh-ink-soft);
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .bh-tab:hover { border-color: var(--bh-purple); color: var(--bh-purple); }
+  .bh-tab.is-active { background: var(--bh-ink); border-color: var(--bh-ink); color: white; }
+
+  .bh-legend {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    padding: 12px 16px;
+    background: var(--bh-bg);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+  }
+  .bh-legend-item { display: flex; align-items: center; gap: 6px; color: var(--bh-ink-soft); }
+  .bh-legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .bh-legend-asterisk {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--bh-ink-faint);
+    font-style: italic;
+  }
+
+  .bh-grid {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 2px;
+    background: var(--bh-border);
+    border: 1px solid var(--bh-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--bh-shadow);
+  }
+  .bh-corner {
+    background: var(--bh-card); padding: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    color: var(--bh-ink-soft);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .bh-col-header {
+    background: var(--bh-card);
+    padding: 14px 12px; text-align: center;
+    font-weight: 700; font-size: 14px;
+    color: var(--bh-ink);
+    border-bottom: 3px solid var(--bh-ink);
+  }
+  .bh-row-header {
+    background: var(--bh-card);
+    padding: 16px 12px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    gap: 4px;
+    font-weight: 700; font-size: 13px;
+    border-left: 5px solid var(--row-color, var(--bh-purple));
+  }
+  .bh-row-header-label { color: var(--bh-ink); line-height: 1.25; }
+  .bh-row-header-sub {
+    font-size: 11px; font-weight: 500;
+    color: var(--bh-ink-soft);
+    text-transform: none; letter-spacing: 0;
+  }
+  .bh-cell {
+    background: var(--bh-card);
+    padding: 12px 10px;
+    display: flex; flex-direction: column; gap: 6px;
+    min-height: 80px;
+  }
+  .bh-cell.is-empty {
+    background: repeating-linear-gradient(45deg,
+      #FAFAF9, #FAFAF9 6px, #F3F4F6 6px, #F3F4F6 12px);
+  }
+
+  .bh-role {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 6px;
+    background: white;
+    border: 1px solid var(--bh-border);
+    border-radius: 7px;
+    padding: 8px 10px;
+    font-size: 13px; font-weight: 500;
+    color: var(--bh-ink);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left; line-height: 1.3;
+    font-family: inherit; width: 100%;
+  }
+  .bh-role:hover {
+    border-color: var(--row-color, var(--bh-purple));
+    background: var(--row-color-soft, #F3E8FF);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .bh-role.is-active {
+    border-color: var(--row-color, var(--bh-purple));
+    background: var(--row-color-soft, #F3E8FF);
+    box-shadow: 0 0 0 2px var(--row-color, var(--bh-purple));
+  }
+  .bh-role-name { flex: 1; min-width: 0; }
+  .bh-role-asterisk {
+    color: var(--row-color, var(--bh-purple));
+    font-weight: 800;
+    margin-left: 2px;
+  }
+  .bh-role .bh-role-icon {
+    flex-shrink: 0; width: 14px; height: 14px;
+    opacity: 0.4; transition: all 0.15s ease;
+  }
+  .bh-role:hover .bh-role-icon, .bh-role.is-active .bh-role-icon { opacity: 1; }
+
+  .bh-row-header.is-lived {
+    background: linear-gradient(135deg, #FEF3C7, #FED7AA);
+    border-left-color: var(--bh-orange);
+  }
+  .bh-row-header.is-lived .bh-row-header-sub { font-style: italic; }
+  .bh-cell.is-lived { background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%); }
+
+  /* ---------- DETAIL PANEL ---------- */
+  .bh-detail {
+    margin-top: 16px;
+    background: var(--bh-card);
+    border: 1.5px solid var(--bh-border);
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: var(--bh-shadow-lg);
+    overflow: hidden;
+    animation: bhFadeIn 0.25s ease;
+    border-top: 4px solid var(--detail-color, var(--bh-purple));
+  }
+  @keyframes bhFadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .bh-detail-header {
+    padding: 20px 24px 16px;
+    background: var(--detail-color-soft, #F3E8FF);
+    border-bottom: 1px solid var(--bh-border);
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px;
+  }
+  .bh-detail-header-text { flex: 1; min-width: 0; }
+  .bh-detail-eyebrow {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--detail-color, var(--bh-purple));
+    margin-bottom: 4px;
+  }
+  .bh-detail-title {
+    font-size: 22px; font-weight: 800;
+    margin: 0 0 4px;
+    color: var(--bh-ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .bh-detail-soc {
+    font-size: 12px;
+    color: var(--bh-ink-soft);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .bh-detail-close {
+    background: white;
+    border: 1px solid var(--bh-border);
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bh-ink-soft);
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+  }
+  .bh-detail-close:hover { background: var(--bh-bg); color: var(--bh-ink); }
+
+  .bh-detail-body { padding: 20px 24px; }
+
+  .bh-soc-tabs {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--bh-border);
+  }
+  .bh-soc-tabs-label {
+    width: 100%;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--bh-ink-soft);
+    margin-bottom: 4px;
+  }
+  .bh-soc-tab {
+    background: white;
+    border: 1.5px solid var(--bh-border);
+    color: var(--bh-ink-soft);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    text-align: left;
+    line-height: 1.3;
+  }
+  .bh-soc-tab:hover {
+    border-color: var(--detail-color);
+    color: var(--detail-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .bh-soc-tab.is-active {
+    background: var(--detail-color);
+    border-color: var(--detail-color);
+    color: white;
+  }
+  .bh-soc-tab-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+
+  .bh-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .bh-stat {
+    background: var(--bh-bg);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--bh-border);
+  }
+  .bh-stat-label {
+    font-size: 11px; font-weight: 600;
+    color: var(--bh-ink-soft);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .bh-stat-value {
+    font-size: 18px; font-weight: 800;
+    color: var(--bh-ink);
+    letter-spacing: -0.01em;
+  }
+  .bh-stat-sub {
+    font-size: 11px;
+    color: var(--bh-ink-soft);
+    margin-top: 2px;
+  }
+  .bh-demand-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 700;
+    padding: 3px 8px; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .bh-demand-High { background: #DCFCE7; color: #166534; }
+  .bh-demand-Medium { background: #FEF3C7; color: #92400E; }
+  .bh-demand-Low { background: #FEE2E2; color: #991B1B; }
+
+  .bh-wage-bar {
+    margin-top: 6px;
+    background: white;
+    border-radius: 6px;
+    height: 6px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--bh-border);
+  }
+  .bh-wage-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--bh-lime), var(--bh-green));
+    border-radius: 6px;
+  }
+
+  .bh-detail-section { margin-bottom: 16px; }
+  .bh-detail-section-title {
+    font-size: 13px; font-weight: 700;
+    color: var(--bh-ink);
+    margin: 0 0 6px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .bh-detail-section-body {
+    font-size: 14px;
+    color: var(--bh-ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .bh-detail-meta {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 8px;
+  }
+  .bh-detail-meta-pill {
+    background: var(--bh-bg);
+    border: 1px solid var(--bh-border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--bh-ink-soft);
+  }
+  .bh-detail-note {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #78350F;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .bh-detail-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--bh-ink);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px; font-weight: 700;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: all 0.15s ease;
+  }
+  .bh-detail-cta:hover { background: #000; transform: translateY(-1px); }
+
+  /* ---------- FUNDING PANEL ---------- */
+  .bh-funding {
+    margin-top: 24px;
+    background: var(--bh-card);
+    border: 1px solid var(--bh-border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--bh-shadow);
+  }
+  .bh-funding-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .bh-funding-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--bh-lime), var(--bh-green));
+    display: flex; align-items: center; justify-content: center;
+    color: white; flex-shrink: 0;
+  }
+  .bh-funding-title { font-size: 18px; font-weight: 800; margin: 0; color: var(--bh-ink); }
+  .bh-funding-sub { font-size: 14px; color: var(--bh-ink-soft); margin: 0 0 16px; }
+  .bh-funding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .bh-funding-col { border-radius: 10px; padding: 16px; border: 1.5px solid; }
+  .bh-funding-col-1 { background: #F5F3FF; border-color: #DDD6FE; }
+  .bh-funding-col-2 { background: #EFF6FF; border-color: #BFDBFE; }
+  .bh-funding-col-3 { background: #F0FDF4; border-color: #BBF7D0; }
+  .bh-funding-col-title {
+    font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .bh-funding-col-1 .bh-funding-col-title { color: var(--bh-purple); }
+  .bh-funding-col-2 .bh-funding-col-title { color: var(--bh-blue); }
+  .bh-funding-col-3 .bh-funding-col-title { color: var(--bh-green); }
+  .bh-funding-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .bh-funding-list li {
+    font-size: 13px; color: var(--bh-ink);
+    padding-left: 18px; position: relative; line-height: 1.4;
+  }
+  .bh-funding-list li::before {
+    content: ""; position: absolute;
+    left: 0; top: 7px;
+    width: 6px; height: 6px; border-radius: 2px;
+  }
+  .bh-funding-col-1 .bh-funding-list li::before { background: var(--bh-purple); }
+  .bh-funding-col-2 .bh-funding-list li::before { background: var(--bh-blue); }
+  .bh-funding-col-3 .bh-funding-list li::before { background: var(--bh-green); }
+
+  .bh-help {
+    margin-top: 16px;
+    font-size: 13px; color: var(--bh-ink-soft);
+    text-align: center; font-style: italic;
+  }
+  .bh-source {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--bh-ink-faint);
+    text-align: center;
+  }
+
+  @media (max-width: 880px) {
+    .bh-pathways { padding: 16px 12px; }
+    .bh-title { font-size: 22px; }
+    .bh-subtitle { font-size: 14px; }
+    .bh-grid { display: block; background: transparent; border: none; box-shadow: none; }
+    .bh-corner, .bh-col-header { display: none; }
+
+    .bh-mobile-section {
+      background: var(--bh-card);
+      border: 1px solid var(--bh-border);
+      border-left: 5px solid var(--row-color, var(--bh-purple));
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      box-shadow: var(--bh-shadow);
+    }
+    .bh-mobile-section-header {
+      padding: 14px 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px; background: white; border: none;
+      width: 100%; text-align: left; font-family: inherit;
+    }
+    .bh-mobile-section-header:hover { background: var(--bh-bg); }
+    .bh-mobile-section-title { font-size: 15px; font-weight: 700; color: var(--bh-ink); margin: 0 0 2px; }
+    .bh-mobile-section-sub { font-size: 12px; color: var(--bh-ink-soft); margin: 0; }
+    .bh-chevron { flex-shrink: 0; transition: transform 0.2s ease; }
+    .bh-mobile-section.is-open .bh-chevron { transform: rotate(180deg); }
+    .bh-mobile-section-body { display: none; padding: 0 16px 16px; }
+    .bh-mobile-section.is-open .bh-mobile-section-body { display: block; }
+    .bh-mobile-cat { margin-top: 12px; }
+    .bh-mobile-cat-label {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--bh-ink-soft); margin-bottom: 6px;
+    }
+    .bh-mobile-cat-roles { display: flex; flex-direction: column; gap: 6px; }
+    .bh-funding-grid { grid-template-columns: 1fr; }
+    .bh-stats { grid-template-columns: repeat(2, 1fr); }
+    .bh-detail-header { padding: 16px; }
+    .bh-detail-body { padding: 16px; }
+    .bh-detail-title { font-size: 18px; }
+  }
+
+  .bh-mobile-only { display: none; }
+  @media (max-width: 880px) {
+    .bh-desktop-only { display: none; }
+    .bh-mobile-only { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bh-pathways">
+
+  <header class="bh-header">
+    <span class="bh-eyebrow">Career Pathways</span>
+    <h2 class="bh-title">Find Your Path Into Kentucky's Behavioral Health Workforce</h2>
+    <p class="bh-subtitle">Whether you're starting with a high school diploma, building on lived experience, or pursuing an advanced degree, there's a behavioral health career for you. Click any role to see Kentucky-specific wages, education requirements, and projected job growth.</p>
+  </header>
+
+  <div class="bh-controls" role="tablist" aria-label="Filter by career area">
+    <span class="bh-controls-label">Filter by area:</span>
+    <button class="bh-tab is-active" data-filter="all" role="tab" aria-selected="true">All areas</button>
+    <button class="bh-tab" data-filter="counseling" role="tab" aria-selected="false">Social Work &amp; Crisis</button>
+    <button class="bh-tab" data-filter="psychology" role="tab" aria-selected="false">Psychiatry</button>
+    <button class="bh-tab" data-filter="nursing" role="tab" aria-selected="false">Nursing</button>
+    <button class="bh-tab" data-filter="disability" role="tab" aria-selected="false">Disability Services</button>
+  </div>
+
+  <div class="bh-legend" aria-hidden="true">
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#6B46C1"></span> HS, Certifications &amp; Credentials</div>
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#F59E0B"></span> Lived Experience</div>
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#3B5BA9"></span> Associates, Bachelors</div>
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#16A34A"></span> Advanced Degree</div>
+  </div>
+
+  <!-- DESKTOP GRID -->
+  <div class="bh-grid bh-desktop-only" role="table" aria-label="Behavioral health career pathways">
+    <div class="bh-corner">Education Level ↓ / Area →</div>
+    <div class="bh-col-header" data-col="counseling">Social Work<br>&amp; Crisis</div>
+    <div class="bh-col-header" data-col="psychology">Psychiatry</div>
+    <div class="bh-col-header" data-col="nursing">Nursing</div>
+    <div class="bh-col-header" data-col="disability">Disability Services</div>
+
+    <div class="bh-row-header" style="--row-color: #6B46C1">
+      <span class="bh-row-header-label">HS, Certifications &amp; Credentials</span>
+      <span class="bh-row-header-sub">Entry level — start after high school</span>
+    </div>
+    <div class="bh-cell" data-col="counseling" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-counseling"></div>
+    <div class="bh-cell" data-col="psychology" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-psychology"></div>
+    <div class="bh-cell" data-col="nursing" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-nursing"></div>
+    <div class="bh-cell" data-col="disability" style="--row-color: #6B46C1; --row-color-soft: #F3E8FF" id="cell-hs-disability"></div>
+
+    <div class="bh-row-header is-lived" style="--row-color: #F59E0B">
+      <span class="bh-row-header-label">Lived Experience</span>
+      <span class="bh-row-header-sub">Personal recovery experience as a strength</span>
+    </div>
+    <div class="bh-cell is-lived" data-col="counseling" style="--row-color: #F59E0B; --row-color-soft: #FEF3C7" id="cell-le-counseling"></div>
+    <div class="bh-cell is-lived is-empty" data-col="psychology"></div>
+    <div class="bh-cell is-lived is-empty" data-col="nursing"></div>
+    <div class="bh-cell is-lived is-empty" data-col="disability"></div>
+
+    <div class="bh-row-header" style="--row-color: #3B5BA9">
+      <span class="bh-row-header-label">Associates, Bachelors</span>
+      <span class="bh-row-header-sub">2- and 4-year degrees</span>
+    </div>
+    <div class="bh-cell" data-col="counseling" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-counseling"></div>
+    <div class="bh-cell" data-col="psychology" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-psychology"></div>
+    <div class="bh-cell" data-col="nursing" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-nursing"></div>
+    <div class="bh-cell" data-col="disability" style="--row-color: #3B5BA9; --row-color-soft: #DBEAFE" id="cell-ab-disability"></div>
+
+    <div class="bh-row-header" style="--row-color: #16A34A">
+      <span class="bh-row-header-label">Advanced Degree</span>
+      <span class="bh-row-header-sub">Master's, doctoral, licensure</span>
+    </div>
+    <div class="bh-cell" data-col="counseling" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-counseling"></div>
+    <div class="bh-cell" data-col="psychology" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-psychology"></div>
+    <div class="bh-cell" data-col="nursing" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-nursing"></div>
+    <div class="bh-cell" data-col="disability" style="--row-color: #16A34A; --row-color-soft: #DCFCE7" id="cell-ad-disability"></div>
+  </div>
+
+  <!-- MOBILE ACCORDION -->
+  <div class="bh-mobile-only" id="bh-mobile-container"></div>
+
+  <!-- DETAIL PANEL (rendered dynamically) -->
+  <div id="bh-detail-container"></div>
+
+  <p class="bh-help">Click any role to see Kentucky wages, education requirements, demand level, and projected job growth.</p>
+  <p class="bh-source">Career pathway data provided by the Kentucky Department for Behavioral Health, Developmental and Intellectual Disabilities. Wage and employment data: Kentucky Center for Statistics (KYSTATS).</p>
+
+  <!-- FUNDING PANEL -->
+  <section class="bh-funding" aria-labelledby="bh-funding-title">
+    <div class="bh-funding-header">
+      <div class="bh-funding-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      </div>
+      <h3 class="bh-funding-title" id="bh-funding-title">How to pay for it</h3>
+    </div>
+    <p class="bh-funding-sub">Funding is available at every level of the pathway. Here are programs and scholarships designed to help Kentuckians train for behavioral health careers.</p>
+    <div class="bh-funding-grid">
+      <div class="bh-funding-col bh-funding-col-1">
+        <div class="bh-funding-col-title">Entry Level</div>
+        <ul class="bh-funding-list">
+          <li>WIOA / OJT Funds</li>
+          <li>Adult Education</li>
+          <li>Registered Apprenticeship Programs</li>
+          <li>Putting Young Kentuckians to Work</li>
+          <li>Workforce Pell</li>
+          <li>Everybody Counts</li>
+          <li>Strategic Initiative for Transformational Employment (SITE)</li>
+        </ul>
+      </div>
+      <div class="bh-funding-col bh-funding-col-2">
+        <div class="bh-funding-col-title">Mid-Level</div>
+        <ul class="bh-funding-list">
+          <li>Work Ready KY Scholarships</li>
+          <li>Pell Grants</li>
+          <li>Health Care Workforce Investment Fund</li>
+          <li>Employer Tuition Assistance</li>
+          <li>OVR &amp; specialized employment support funds</li>
+          <li>LWDB regional scholarship opportunities</li>
+        </ul>
+      </div>
+      <div class="bh-funding-col bh-funding-col-3">
+        <div class="bh-funding-col-title">Graduate / Licensed</div>
+        <ul class="bh-funding-list">
+          <li>Employer Tuition Assistance</li>
+          <li>Registered Apprenticeship Programs</li>
+          <li>LWDB regional scholarship opportunities</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function() {
+  /* =====================================================================
+     SOC OCCUPATION DATA — Kentucky-specific wages, demand, education, and
+     projected employment. Source: Futuriti CCAP_Occupations dataset.
+  ===================================================================== */
+  const SOC_DATA = {"29-1123":{"title":"Physical Therapists","education":"Doctoral or professional degree","demand":"High","entryWage":61810,"typicalWage":97500,"experiencedWage":121590,"projected":4225,"description":"Assess, plan, organize, and participate in rehabilitative programs that improve mobility, relieve pain, increase strength, and improve or correct disabling conditions resulting from disease or injury.","training":null},"31-2011":{"title":"Occupational Therapy Assistants","education":"Associate's degree","demand":"Medium","entryWage":48380,"typicalWage":65980,"experiencedWage":78660,"projected":661,"description":"Assist occupational therapists in providing occupational therapy treatments and procedures. May, in accordance with state laws, assist in development of treatment plans, carry out routine functions, direct activity programs, and document the progress of treatments.","training":null},"21-1018":{"title":"Substance abuse, behavioral disorder, and mental health counselors","education":"Master's degree","demand":"High","entryWage":33970,"typicalWage":51790,"experiencedWage":89690,"projected":10490,"description":"Counsel and advise individuals with alcohol, tobacco, drug, or other addictions, or behavioral or emotional problems. Includes Certified Alcohol and Drug Counselors (CADCs) and Licensed Counselors at the master's level.","training":"Internship/residency"},"29-1127":{"title":"Speech-Language Pathologists","education":"Master's degree","demand":"High","entryWage":61080,"typicalWage":82910,"experiencedWage":113410,"projected":2938,"description":"Assess and treat persons with speech, language, voice, and fluency disorders. May select alternative communication systems and teach their use.","training":"Internship/residency"},"29-1141":{"title":"Registered Nurses","education":"Bachelor's degree","demand":"High","entryWage":63180,"typicalWage":79910,"experiencedWage":104430,"projected":51462,"description":"Assess patient health problems and needs, develop and implement nursing care plans, and maintain medical records. Includes Psychiatric-Mental Health RNs and Advanced Practice RNs who specialize in mental health care.","training":null},"11-9151":{"title":"Social and Community Service Managers","education":"Bachelor's degree","demand":"High","entryWage":44630,"typicalWage":73990,"experiencedWage":104890,"projected":2449,"description":"Plan, direct, or coordinate the activities of a social service program or community outreach organization. Oversee the program or organization's budget and policies regarding participant involvement, program requirements, and benefits. Work may involve directing social workers, counselors, or probation officers.","training":null},"21-1022":{"title":"Healthcare Social Workers","education":"Master's degree","demand":"High","entryWage":40580,"typicalWage":64840,"experiencedWage":84620,"projected":2088,"description":"Provide individuals, families, and groups with the psychosocial support needed to cope with chronic, acute, or terminal illnesses. Provide patients with information and counseling, and make referrals for other services. May also provide case and care management.","training":"Internship/residency"},"29-2061":{"title":"Licensed Practical and Licensed Vocational Nurses","education":"Postsecondary nondegree award","demand":"High","entryWage":46230,"typicalWage":58450,"experiencedWage":69310,"projected":9441,"description":"Care for ill, injured, or convalescing patients or persons with disabilities in hospitals, nursing homes, clinics, private homes, group homes, and similar institutions. May work under the supervision of a registered nurse. Licensing required.","training":null},"31-1131":{"title":"Nursing Assistants","education":"Postsecondary nondegree award","demand":"High","entryWage":29630,"typicalWage":37330,"experiencedWage":46340,"projected":24151,"description":"Provide or assist with basic care or support under the direction of onsite licensed nursing staff. Includes CNAs and Medication Aides (MNAs).","training":null},"31-1133":{"title":"Psychiatric Aides","education":"High school diploma or equivalent","demand":"Medium","entryWage":35380,"typicalWage":37700,"experiencedWage":47670,"projected":472,"description":"Assist mentally impaired or emotionally disturbed patients, working under direction of nursing and medical staff. May assist with daily living activities, lead patients in educational and recreational activities, or accompany patients to and from examinations and treatments.","training":"Short-term on-the-job training"},"21-1015":{"title":"Rehabilitation Counselors","education":"Master's degree","demand":"Medium","entryWage":35740,"typicalWage":56150,"experiencedWage":75550,"projected":1259,"description":"Counsel individuals to maximize the independence and employability of persons coping with personal, social, and vocational difficulties that result from birth defects, illness, disease, accidents, aging, or the stress of daily life.","training":null},"31-2021":{"title":"Physical Therapist Assistants","education":"Associate's degree","demand":"High","entryWage":23850,"typicalWage":62400,"experiencedWage":80580,"projected":3221,"description":"Assist physical therapists in providing physical therapy treatments and procedures. May assist in the development of treatment plans, carry out routine functions, document the progress of treatment, and modify specific treatments.","training":null},"25-1066":{"title":"Psychology Teachers, Postsecondary","education":"Doctoral or professional degree","demand":"Medium","entryWage":46560,"typicalWage":72380,"experiencedWage":110530,"projected":587,"description":"Teach courses in psychology, such as child, clinical, and developmental psychology, and psychological counseling. Includes both teachers primarily engaged in teaching and those who do a combination of teaching and research.","training":null},"21-1023":{"title":"Mental Health and Substance Abuse Social Workers","education":"Master's degree","demand":"Medium","entryWage":35080,"typicalWage":45450,"experiencedWage":73210,"projected":1207,"description":"Assess and treat individuals with mental, emotional, or substance abuse problems. Activities may include individual and group therapy, crisis intervention, case management, client advocacy, prevention, and education.","training":"Internship/residency"},"31-1120":{"title":"Home Health and Personal Care Aides","education":"High school diploma or equivalent","demand":"High","entryWage":25080,"typicalWage":34810,"experiencedWage":47780,"projected":33543,"description":"Provide direct support to people in their homes or care settings, helping with daily living activities and personal care.","training":"Short-term on-the-job training"},"29-1223":{"title":"Psychiatrists","education":"Doctoral or professional degree","demand":"Low","entryWage":109490,"typicalWage":229630,"experiencedWage":null,"projected":222,"description":"Diagnose, treat, and help prevent mental disorders.","training":"Internship/residency"},"21-1093":{"title":"Social and Human Service Assistants","education":"High school diploma or equivalent","demand":"High","entryWage":28150,"typicalWage":36560,"experiencedWage":53240,"projected":6231,"description":"Assist other social and human service providers in providing client services in a wide variety of fields, such as psychology, rehabilitation, or social work. May assist clients in identifying and obtaining available benefits and social and community services.","training":"Short-term on-the-job training"},"29-1122":{"title":"Occupational Therapists","education":"Master's degree","demand":"High","entryWage":68140,"typicalWage":91250,"experiencedWage":115940,"projected":2318,"description":"Assess, plan, and organize rehabilitative programs that help build or restore vocational, homemaking, and daily living skills, as well as general independence, to persons with disabilities or developmental delays.","training":null},"29-2053":{"title":"Psychiatric Technicians","education":"Postsecondary nondegree award","demand":"Medium","entryWage":30520,"typicalWage":37850,"experiencedWage":47460,"projected":972,"description":"Care for individuals with mental or emotional conditions or disabilities, following the instructions of physicians or other health practitioners. Includes Mental Health Technicians, Behavioral Health Technicians, and Registered Behavior Technicians.","training":"Short-term on-the-job training"},"19-3033":{"title":"Clinical and Counseling Psychologists","education":"Doctoral or professional degree","demand":"Medium","entryWage":49990,"typicalWage":116480,"experiencedWage":202900,"projected":992,"description":"Assess, diagnose, and treat mental and emotional disorders of individuals through observation, interview, and psychological tests.","training":"Internship/residency"},"25-1113":{"title":"Social Work Teachers, Postsecondary","education":"Doctoral or professional degree","demand":"Medium","entryWage":44590,"typicalWage":61900,"experiencedWage":100280,"projected":309,"description":"Teach courses in social work. Includes both teachers primarily engaged in teaching and those who do a combination of teaching and research.","training":null},"25-1072":{"title":"Nursing Instructors and Teachers, Postsecondary","education":"Doctoral or professional degree","demand":"High","entryWage":48240,"typicalWage":74850,"experiencedWage":113370,"projected":1410,"description":"Demonstrate and teach patient care in classroom and clinical units to nursing students. Includes both teachers primarily engaged in teaching and those who do a combination of teaching and research.","training":null},"19-3034":{"title":"School Psychologists","education":"Master's degree","demand":"Low","entryWage":57660,"typicalWage":69130,"experiencedWage":92080,"projected":514,"description":"Diagnose and implement individual or schoolwide interventions or strategies to address educational, behavioral, or developmental issues that adversely impact educational functioning in a school.","training":"Internship/residency"},"21-1094":{"title":"Community Health Workers","education":"High school diploma or equivalent","demand":"Medium","entryWage":34740,"typicalWage":48960,"experiencedWage":76690,"projected":1179,"description":"Promote health within a community by assisting individuals to adopt healthy behaviors. Serve as an advocate for the health needs of individuals by assisting community residents in effectively communicating with healthcare providers or social service agencies.","training":"Short-term on-the-job training"}};
+
+  /* =====================================================================
+     ROLES — official mapping from Beth Kuhn (KY DBHDID, March 2026).
+     'flag' values:
+       null  = direct SOC match
+       '*'   = falls under broader SOC code (specific job title not solely captured)
+       '**'  = could be classified under multiple SOC codes (depends on duties)
+     'altSocs' = additional SOC codes for ** roles, listed in order of relevance
+  ===================================================================== */
+  const ROLES = {
+    'hs-counseling': [
+      { name: 'Behavioral/Mental Health/Psychiatric Technician', soc: '29-2053' },
+      { name: 'Certified Alcohol and Drug Counselor Associate', soc: '21-1018' },
+      { name: 'Community Health Worker', soc: '21-1094' },
+      { name: 'Community Support Associate', soc: '21-1094' },
+      { name: 'Crisis Intervention Specialist', soc: '21-1093', flag: '*' },
+      { name: 'Prevention Associate', soc: '21-1093', flag: '*' },
+      { name: 'Registered Behavior Tech (RBT)', soc: '29-2053' }
+    ],
+    'hs-psychology': [
+      { name: 'Behavioral/Mental Health/Psychiatric Technician', soc: '29-2053' },
+      { name: 'Psychiatric Aide', soc: '31-1133' }
+    ],
+    'hs-nursing': [
+      { name: 'Behavioral Health LPN', soc: '29-2061', flag: '*' },
+      { name: 'MNA / CNA', soc: '31-1131' }
+    ],
+    'hs-disability': [
+      { name: 'Assistive Technology Specialist', soc: '31-2011', flag: '*' },
+      { name: 'Case Manager', soc: '21-1093', flag: '**', altSocs: ['21-1015'] },
+      { name: 'Direct Service Professional', soc: '31-1120', flag: '**', altSocs: ['31-1131'] },
+      { name: 'Registered Behavior Tech', soc: '29-2053' },
+      { name: 'Physical Therapy Assistant', soc: '31-2021' }
+    ],
+    'le-counseling': [
+      { name: 'Case Manager', soc: '21-1018', flag: '**', altSocs: ['21-1094', '21-1093'] },
+      { name: 'Certified Alcohol and Drug Counselor Associate', soc: '21-1018' },
+      { name: 'Peer Support Specialist', soc: '21-1094', flag: '**', altSocs: ['21-1093', '21-1018'] }
+    ],
+    'ab-counseling': [
+      { name: 'Case Manager', soc: '21-1023' },
+      { name: 'Certified Alcohol and Drug Counselor', soc: '21-1018' },
+      { name: 'Hi-Fidelity Wraparound Facilitator', soc: '21-1018', flag: '*' },
+      { name: 'Prevention Specialist', soc: '21-1018', flag: '*' },
+      { name: 'Social Worker', soc: '21-1023' },
+      { name: 'Health Care/Social Assistance Supervisor', soc: '21-1022', flag: '**', altSocs: ['21-1023'] }
+    ],
+    'ab-psychology': [
+      { name: 'Social Worker', soc: '21-1023' }
+    ],
+    'ab-nursing': [
+      { name: 'Psychiatric-Mental Health Registered Nurse', soc: '29-1141', flag: '*' }
+    ],
+    'ab-disability': [
+      { name: 'Case Manager', soc: '21-1015', flag: '**' },
+      { name: 'Rehabilitation Designer/Engineer', soc: '21-1015', altSocs: ['21-1022'] },
+      { name: 'Social Worker', soc: '21-1022', flag: '*' },
+      { name: 'Speech Pathologist', soc: '29-1127' }
+    ],
+    'ad-counseling': [
+      { name: 'Professor and other Faculty', soc: '25-1113' },
+      { name: 'Licensed Counselor', soc: '21-1018' },
+      { name: 'Licensed Social Worker', soc: '21-1023' },
+      { name: 'Health Care/Social Assistance Director', soc: '11-9151' },
+      { name: 'Therapist', soc: '21-1018', flag: '*' }
+    ],
+    'ad-psychology': [
+      { name: 'Clinical Psychologist', soc: '19-3033' },
+      { name: 'Psychology Professor and other Faculty', soc: '25-1066' },
+      { name: 'Psychiatrist', soc: '29-1223' },
+      { name: 'School Psychologist', soc: '19-3034' }
+    ],
+    'ad-nursing': [
+      { name: 'Psychiatric Mental Health Advanced Practice RN', soc: '29-1141', flag: '*' },
+      { name: 'Nursing Faculty', soc: '25-1072' }
+    ],
+    'ad-disability': [
+      { name: 'Board Certified Behavior Analyst', soc: '21-1018', flag: '*' },
+      { name: 'Clinical Psychologist', soc: '19-3033' },
+      { name: 'Facility Director', soc: '11-9151' },
+      { name: 'Licensed Social Worker', soc: '21-1022', flag: '*' },
+      { name: 'Occupational Therapist', soc: '29-1122' },
+      { name: 'Physical Therapist', soc: '29-1123' },
+      { name: 'Rehabilitation Counselor', soc: '21-1015' }
+    ]
+  };
+
+  const FLAG_NOTES = {
+    '*': "This job title is grouped with similar roles in workforce data. The wage and demand information shown reflects the broader occupational category.",
+    '**': "Wages and requirements for this role can vary depending on the specific job duties. The data below shows the most common path, but related roles may pay differently."
+  };
+
+  const ROW_META = {
+    'hs': { label: 'HS, Certifications & Credentials', sub: 'Entry level — start after high school', color: '#6B46C1', soft: '#F3E8FF' },
+    'le': { label: 'Lived Experience', sub: 'Personal recovery experience as a strength', color: '#F59E0B', soft: '#FEF3C7' },
+    'ab': { label: 'Associates, Bachelors', sub: '2- and 4-year degrees', color: '#3B5BA9', soft: '#DBEAFE' },
+    'ad': { label: 'Advanced Degree', sub: "Master's, doctoral, licensure", color: '#16A34A', soft: '#DCFCE7' }
+  };
+
+  const COL_META = {
+    counseling: 'Social Work & Crisis',
+    psychology: 'Psychiatry',
+    nursing: 'Nursing',
+    disability: 'Disability Services'
+  };
+
+  const ICON_INFO = '<svg class="bh-role-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v.01M8 7.5v3"/></svg>';
+
+  function fmtMoney(n) {
+    if (n == null) return '—';
+    return '$' + Math.round(n).toLocaleString();
+  }
+  function fmtNumber(n) {
+    if (n == null) return '—';
+    return n.toLocaleString();
+  }
+
+  function renderRole(role, rowKey, colKey) {
+    return '<button class="bh-role" data-soc="' + role.soc + '"' +
+      ' data-alt-socs="' + (role.altSocs ? role.altSocs.join(',') : '') + '"' +
+      ' data-row="' + rowKey + '" data-name="' + role.name.replace(/"/g, '&quot;') + '"' +
+      ' data-flag="' + (role.flag || '') + '" type="button">' +
+      '<span class="bh-role-name">' + role.name + '</span>' + ICON_INFO +
+      '</button>';
+  }
+
+  // Render desktop cells
+  Object.keys(ROLES).forEach(function(key) {
+    const cell = document.getElementById('cell-' + key);
+    if (!cell) return;
+    const parts = key.split('-');
+    cell.innerHTML = ROLES[key].map(function(r) { return renderRole(r, parts[0], parts[1]); }).join('');
+  });
+
+  // Render mobile accordion
+  const mobile = document.getElementById('bh-mobile-container');
+  if (mobile) {
+    let html = '';
+    ['hs', 'le', 'ab', 'ad'].forEach(function(rowKey, idx) {
+      const meta = ROW_META[rowKey];
+      const rowRoles = {};
+      let totalCount = 0;
+      Object.keys(COL_META).forEach(function(col) {
+        const k = rowKey + '-' + col;
+        if (ROLES[k] && ROLES[k].length) {
+          rowRoles[col] = ROLES[k];
+          totalCount += ROLES[k].length;
+        }
+      });
+      if (totalCount === 0) return;
+
+      html += '<div class="bh-mobile-section' + (idx === 0 ? ' is-open' : '') + '" style="--row-color: ' + meta.color + '; --row-color-soft: ' + meta.soft + '" data-row="' + rowKey + '">' +
+        '<button class="bh-mobile-section-header" type="button" aria-expanded="' + (idx === 0 ? 'true' : 'false') + '">' +
+          '<div>' +
+            '<div class="bh-mobile-section-title">' + meta.label + '</div>' +
+            '<div class="bh-mobile-section-sub">' + meta.sub + '</div>' +
+          '</div>' +
+          '<svg class="bh-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+        '</button>' +
+        '<div class="bh-mobile-section-body">';
+
+      Object.keys(rowRoles).forEach(function(col) {
+        html += '<div class="bh-mobile-cat" data-col="' + col + '">' +
+          '<div class="bh-mobile-cat-label">' + COL_META[col] + '</div>' +
+          '<div class="bh-mobile-cat-roles">' +
+            rowRoles[col].map(function(r) { return renderRole(r, rowKey, col); }).join('') +
+          '</div>' +
+        '</div>';
+      });
+
+      html += '</div></div>';
+    });
+    mobile.innerHTML = html;
+
+    mobile.querySelectorAll('.bh-mobile-section-header').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const section = btn.closest('.bh-mobile-section');
+        const isOpen = section.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    });
+  }
+
+  // Filter tabs
+  const tabs = document.querySelectorAll('.bh-tab');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      const filter = tab.getAttribute('data-filter');
+      tabs.forEach(function(t) {
+        t.classList.toggle('is-active', t === tab);
+        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+      });
+
+      document.querySelectorAll('.bh-grid [data-col]').forEach(function(el) {
+        const match = filter === 'all' || el.getAttribute('data-col') === filter;
+        el.style.opacity = match ? '1' : '0.25';
+        el.style.transition = 'opacity 0.2s ease';
+        el.style.pointerEvents = match ? 'auto' : 'none';
+      });
+
+      document.querySelectorAll('.bh-mobile-cat').forEach(function(el) {
+        const match = filter === 'all' || el.getAttribute('data-col') === filter;
+        el.style.display = match ? 'block' : 'none';
+      });
+    });
+  });
+
+  // ============ DETAIL PANEL ============
+  const detailContainer = document.getElementById('bh-detail-container');
+  let currentDetailState = null; // { roleName, primarySoc, allSocs, rowKey, flag, activeSoc }
+
+  function renderDetailBody(state) {
+    const data = SOC_DATA[state.activeSoc];
+    if (!data) return '<p>Data not available for this occupation.</p>';
+
+    const wageBarPct = data.experiencedWage ? Math.min(100, (data.typicalWage / data.experiencedWage) * 100) : 50;
+    const demandPill = data.demand ? '<span class="bh-demand-pill bh-demand-' + data.demand + '">' + data.demand + ' Demand</span>' : '<span style="color:var(--bh-ink-faint)">—</span>';
+
+    let html = '';
+
+    // Related-paths tabs (only for ** roles where multiple career classifications apply)
+    if (state.allSocs.length > 1) {
+      html += '<div class="bh-soc-tabs">' +
+        '<div class="bh-soc-tabs-label">Click to explore related career paths:</div>' +
+        state.allSocs.map(function(soc) {
+          const d = SOC_DATA[soc];
+          const cls = soc === state.activeSoc ? 'bh-soc-tab is-active' : 'bh-soc-tab';
+          return '<button class="' + cls + '" data-soc-tab="' + soc + '" type="button">' +
+            (d ? d.title : 'Related role') +
+          '</button>';
+        }).join('') +
+      '</div>';
+    }
+
+    // Contextual note (no asterisk reference visible to user)
+    if (state.flag && FLAG_NOTES[state.flag]) {
+      html += '<div class="bh-detail-note">' +
+        '<strong>Good to know:</strong> ' + FLAG_NOTES[state.flag] +
+      '</div>';
+    }
+
+    html += '<div class="bh-stats">' +
+      '<div class="bh-stat">' +
+        '<div class="bh-stat-label">Entry Wage</div>' +
+        '<div class="bh-stat-value">' + fmtMoney(data.entryWage) + '</div>' +
+        '<div class="bh-stat-sub">starting salary</div>' +
+      '</div>' +
+      '<div class="bh-stat">' +
+        '<div class="bh-stat-label">Typical Wage</div>' +
+        '<div class="bh-stat-value">' + fmtMoney(data.typicalWage) + '</div>' +
+        '<div class="bh-stat-sub">median KY salary</div>' +
+        '<div class="bh-wage-bar"><div class="bh-wage-fill" style="width: ' + wageBarPct + '%"></div></div>' +
+      '</div>' +
+      '<div class="bh-stat">' +
+        '<div class="bh-stat-label">Experienced Wage</div>' +
+        '<div class="bh-stat-value">' + fmtMoney(data.experiencedWage) + '</div>' +
+        '<div class="bh-stat-sub">top earners</div>' +
+      '</div>' +
+      '<div class="bh-stat">' +
+        '<div class="bh-stat-label">KY Demand</div>' +
+        '<div class="bh-stat-value">' + demandPill + '</div>' +
+        '<div class="bh-stat-sub">' + (data.projected ? fmtNumber(data.projected) + ' projected jobs' : '') + '</div>' +
+      '</div>' +
+    '</div>';
+
+    if (data.description) {
+      html += '<div class="bh-detail-section">' +
+        '<div class="bh-detail-section-title">What this work involves</div>' +
+        '<p class="bh-detail-section-body">' + data.description + '</p>' +
+      '</div>';
+    }
+
+    const metaPills = [];
+    if (data.education) metaPills.push('🎓 ' + data.education);
+    if (data.training) metaPills.push('📋 ' + data.training);
+    if (metaPills.length) {
+      html += '<div class="bh-detail-section">' +
+        '<div class="bh-detail-section-title">Path to entry</div>' +
+        '<div class="bh-detail-meta">' +
+          metaPills.map(function(p) { return '<span class="bh-detail-meta-pill">' + p + '</span>'; }).join('') +
+        '</div>' +
+      '</div>';
+    }
+
+    html += '<a class="bh-detail-cta" href="https://futuriti.org/public/page/future-finder" target="_blank" rel="noopener">' +
+      'Explore on Future Finder' +
+      '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11L11 5"/><path d="M6 5h5v5"/></svg>' +
+    '</a>';
+
+    return html;
+  }
+
+  function renderDetailHeader(state) {
+    const meta = ROW_META[state.rowKey] || ROW_META.hs;
+    const data = SOC_DATA[state.activeSoc];
+    const eyebrow = meta.label + (data && data.education ? ' · ' + data.education : '');
+    const categoryLine = data ? 'Workforce category: ' + data.title : '';
+    return '<div class="bh-detail-header">' +
+      '<div class="bh-detail-header-text">' +
+        '<div class="bh-detail-eyebrow">' + eyebrow + '</div>' +
+        '<h3 class="bh-detail-title">' + state.roleName + '</h3>' +
+        '<div class="bh-detail-soc">' + categoryLine + '</div>' +
+      '</div>' +
+      '<button class="bh-detail-close" type="button" aria-label="Close" id="bh-detail-close">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+      '</button>' +
+    '</div>';
+  }
+
+  function refreshDetail() {
+    if (!currentDetailState) return;
+    const meta = ROW_META[currentDetailState.rowKey] || ROW_META.hs;
+    detailContainer.innerHTML = '<div class="bh-detail" style="--detail-color: ' + meta.color + '; --detail-color-soft: ' + meta.soft + '">' +
+      renderDetailHeader(currentDetailState) +
+      '<div class="bh-detail-body">' + renderDetailBody(currentDetailState) + '</div>' +
+    '</div>';
+
+    // Wire close button
+    const closeBtn = document.getElementById('bh-detail-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        detailContainer.innerHTML = '';
+        currentDetailState = null;
+        document.querySelectorAll('.bh-role.is-active').forEach(function(b) { b.classList.remove('is-active'); });
+      });
+    }
+
+    // Wire SOC tabs (for ** roles)
+    detailContainer.querySelectorAll('[data-soc-tab]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        currentDetailState.activeSoc = btn.getAttribute('data-soc-tab');
+        refreshDetail();
+      });
+    });
+  }
+
+  function openDetail(roleName, primarySoc, altSocs, rowKey, flag) {
+    const allSocs = [primarySoc].concat(altSocs ? altSocs.split(',').filter(Boolean) : []);
+    currentDetailState = {
+      roleName: roleName,
+      primarySoc: primarySoc,
+      allSocs: allSocs,
+      rowKey: rowKey,
+      flag: flag,
+      activeSoc: primarySoc
+    };
+    refreshDetail();
+    detailContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Wire role buttons
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.bh-role');
+    if (!btn) return;
+
+    document.querySelectorAll('.bh-role.is-active').forEach(function(b) {
+      if (b !== btn) b.classList.remove('is-active');
+    });
+    btn.classList.add('is-active');
+
+    openDetail(
+      btn.getAttribute('data-name'),
+      btn.getAttribute('data-soc'),
+      btn.getAttribute('data-alt-socs'),
+      btn.getAttribute('data-row'),
+      btn.getAttribute('data-flag')
+    );
+  });
+
+  /* =====================================================================
+     IFRAME AUTO-RESIZE
+     If this file is embedded inside an iframe (the typical case for
+     Futuriti), it sends its current document height to the parent page
+     via postMessage whenever the content changes. The parent page needs
+     a small matching listener (see embed instructions) that adjusts the
+     iframe height to match. This eliminates blank space on desktop and
+     prevents content cutoff on mobile.
+  ===================================================================== */
+  function reportHeight() {
+    if (window.parent === window) return; // not embedded
+    const height = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
+    window.parent.postMessage({ type: 'bh-pathways-resize', height: height }, '*');
+  }
+
+  // Report on load
+  if (document.readyState === 'complete') {
+    reportHeight();
+  } else {
+    window.addEventListener('load', reportHeight);
+  }
+
+  // Report whenever content size changes (filter clicks, role clicks,
+  // detail panel open/close, related-paths toggle, mobile accordion)
+  if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(function() { reportHeight(); });
+    ro.observe(document.body);
+  }
+
+  // Fallback: report on window resize and after small delay (covers font loading)
+  window.addEventListener('resize', reportHeight);
+  setTimeout(reportHeight, 250);
+  setTimeout(reportHeight, 1000);
+})();
+</script>
+</body>
+</html>
