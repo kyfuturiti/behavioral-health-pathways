@@ -97,6 +97,145 @@
     font-style: italic;
   }
 
+  /* ---------- DIAGRAM (clickable visual pathway map) ---------- */
+  .bh-diagram-wrap {
+    margin: 8px auto 24px;
+    max-width: 1100px;
+    /* Allow the diagram to extend wider than the 800px container */
+    width: calc(100vw - 48px);
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  .bh-diagram-intro {
+    font-size: 13px;
+    color: var(--bh-ink-soft);
+    text-align: center;
+    margin: 0 0 12px;
+    font-style: italic;
+  }
+  .bh-diagram {
+    display: grid;
+    grid-template-columns: 160px repeat(4, 1fr);
+    gap: 2px;
+    background: var(--bh-border);
+    border: 1px solid var(--bh-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--bh-shadow);
+  }
+  .bh-d-corner {
+    background: var(--bh-card);
+    padding: 14px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--bh-ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+  }
+  .bh-d-col-head {
+    background: var(--bh-card);
+    padding: 14px 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--bh-ink);
+    border-bottom: 3px solid var(--bh-ink);
+    line-height: 1.25;
+  }
+  .bh-d-row-head {
+    background: var(--bh-card);
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    border-left: 5px solid var(--row-color, var(--bh-purple));
+    cursor: pointer;
+    transition: background 0.15s ease;
+    font-family: inherit;
+    text-align: left;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    width: 100%;
+  }
+  .bh-d-row-head:hover { background: var(--row-color-soft, #F3E8FF); }
+  .bh-d-row-head-label {
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--bh-ink);
+    line-height: 1.2;
+  }
+  .bh-d-row-head-sub {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--bh-ink-soft);
+    line-height: 1.3;
+  }
+  .bh-d-row-head.is-lived {
+    border-left-color: var(--bh-orange);
+  }
+  .bh-d-cell {
+    background: var(--bh-card);
+    padding: 8px 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .bh-d-cell:hover { background: var(--row-color-soft, #F3E8FF); }
+  .bh-d-cell.is-empty {
+    background: repeating-linear-gradient(45deg,
+      #FAFAF9, #FAFAF9 5px, #F3F4F6 5px, #F3F4F6 10px);
+    cursor: default;
+  }
+  .bh-d-cell.is-empty:hover {
+    background: repeating-linear-gradient(45deg,
+      #FAFAF9, #FAFAF9 5px, #F3F4F6 5px, #F3F4F6 10px);
+  }
+  .bh-d-chip {
+    background: white;
+    border: 1px solid var(--bh-border);
+    border-radius: 5px;
+    padding: 4px 7px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--bh-ink);
+    line-height: 1.3;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    display: block;
+    width: 100%;
+  }
+  .bh-d-chip:hover {
+    border-color: var(--row-color, var(--bh-purple));
+    background: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    z-index: 1;
+    position: relative;
+  }
+
+  /* On narrow screens, hide the diagram entirely — accordion alone is fine */
+  @media (max-width: 720px) {
+    .bh-diagram-wrap { display: none; }
+  }
+  /* On medium screens, simpler grid columns */
+  @media (max-width: 900px) {
+    .bh-diagram { grid-template-columns: 130px repeat(4, 1fr); }
+    .bh-d-row-head-label { font-size: 11px; }
+    .bh-d-row-head-sub { font-size: 9px; }
+    .bh-d-chip { font-size: 10px; padding: 3px 6px; }
+    .bh-d-col-head { font-size: 12px; padding: 10px 6px; }
+  }
   .bh-grid {
     display: grid;
     grid-template-columns: 180px repeat(4, 1fr);
@@ -184,13 +323,6 @@
     opacity: 0.4; transition: all 0.15s ease;
   }
   .bh-role:hover .bh-role-icon, .bh-role.is-active .bh-role-icon { opacity: 1; }
-
-  .bh-row-header.is-lived {
-    background: linear-gradient(135deg, #FEF3C7, #FED7AA);
-    border-left-color: var(--bh-orange);
-  }
-  .bh-row-header.is-lived .bh-row-header-sub { font-style: italic; }
-  .bh-cell.is-lived { background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%); }
 
   /* ---------- DETAIL PANEL ---------- */
   .bh-detail {
@@ -440,6 +572,29 @@
   .bh-funding-col-2 .bh-funding-list li::before { background: var(--bh-blue); }
   .bh-funding-col-3 .bh-funding-list li::before { background: var(--bh-green); }
 
+  .bh-funding-list a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .bh-funding-col-1 .bh-funding-list a:hover { color: var(--bh-purple); border-bottom-color: var(--bh-purple); }
+  .bh-funding-col-2 .bh-funding-list a:hover { color: var(--bh-blue); border-bottom-color: var(--bh-blue); }
+  .bh-funding-col-3 .bh-funding-list a:hover { color: var(--bh-green); border-bottom-color: var(--bh-green); }
+  .bh-funding-list a::after {
+    content: " ↗";
+    font-size: 10px;
+    opacity: 0.5;
+    margin-left: 1px;
+  }
+  .bh-funding-list .bh-funding-note {
+    display: block;
+    font-size: 11px;
+    color: var(--bh-ink-soft);
+    font-style: italic;
+    margin-top: 2px;
+  }
+
   .bh-help {
     margin-top: 16px;
     font-size: 13px; color: var(--bh-ink-soft);
@@ -533,13 +688,19 @@
     <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#16A34A"></span> Advanced Degree</div>
   </div>
 
+  <!-- DIAGRAM (visual pathway map — clickable shortcut into the accordion below) -->
+  <div class="bh-diagram-wrap">
+    <p class="bh-diagram-intro">See your full pathway at a glance — click any role to jump to details below.</p>
+    <div class="bh-diagram" id="bh-diagram" role="grid" aria-label="Behavioral health career pathway map"></div>
+  </div>
+
   <!-- ACCORDION (primary view at all screen sizes) -->
   <div id="bh-mobile-container"></div>
 
   <!-- DETAIL PANEL (rendered dynamically) -->
   <div id="bh-detail-container"></div>
 
-  <p class="bh-help">Click any role to see Kentucky wages, education requirements, demand level, and projected job growth.</p>
+  <p class="bh-help">Use the visual map above or the list below to explore careers — click any role to see Kentucky wages, education requirements, and projected job growth.</p>
   <p class="bh-source">Career pathway data provided by the Kentucky Department for Behavioral Health, Developmental and Intellectual Disabilities. Wage and employment data: Kentucky Center for Statistics (KYSTATS).</p>
 
   <!-- FUNDING PANEL -->
@@ -558,32 +719,31 @@
       <div class="bh-funding-col bh-funding-col-1">
         <div class="bh-funding-col-title">Entry Level</div>
         <ul class="bh-funding-list">
-          <li>WIOA / OJT Funds</li>
-          <li>Adult Education</li>
-          <li>Registered Apprenticeship Programs</li>
-          <li>Putting Young Kentuckians to Work</li>
-          <li>Workforce Pell</li>
-          <li>Everybody Counts</li>
-          <li>Strategic Initiative for Transformational Employment (SITE)</li>
+          <li><a href="https://kcc.ky.gov/Training/pages/individuals.aspx" target="_blank" rel="noopener">WIOA / OJT Funds</a></li>
+          <li><a href="https://kyae.ky.gov/Students/Pages/earn-ged-diploma.aspx" target="_blank" rel="noopener">Adult Education</a></li>
+          <li><a href="https://kyworks.ky.gov/Services/Pages/Career-Interests.aspx" target="_blank" rel="noopener">Registered Apprenticeship Programs</a></li>
+          <li><a href="https://apps.legislature.ky.gov/CommitteeDocuments/313/30835/EDWI%2011-19-2024%20-%20Putting%20Young%20Kentuckians%20to%20Work.pdf" target="_blank" rel="noopener">Putting Young Kentuckians to Work</a></li>
+          <li><a href="https://everybodycounts.ky.gov/Pages/index.aspx" target="_blank" rel="noopener">Everybody Counts</a></li>
+          <li><a href="https://www.kheaa.com/web/scholarships-grants.faces" target="_blank" rel="noopener">Other scholarships &amp; grants (KHEAA)</a></li>
         </ul>
       </div>
       <div class="bh-funding-col bh-funding-col-2">
         <div class="bh-funding-col-title">Mid-Level</div>
         <ul class="bh-funding-list">
-          <li>Work Ready KY Scholarships</li>
-          <li>Pell Grants</li>
-          <li>Health Care Workforce Investment Fund</li>
-          <li>Employer Tuition Assistance</li>
-          <li>OVR &amp; specialized employment support funds</li>
-          <li>LWDB regional scholarship opportunities</li>
+          <li><a href="https://workreadykentucky.com/" target="_blank" rel="noopener">Work Ready KY Scholarships</a></li>
+          <li><a href="https://studentaid.gov/understand-aid/types/grants/pell" target="_blank" rel="noopener">Pell Grants &amp; Workforce Pell</a></li>
+          <li>Employer Tuition Assistance<span class="bh-funding-note">Contact your employer to ask if available</span></li>
+          <li><a href="https://kwib.ky.gov/Local-Boards/Pages/default.aspx" target="_blank" rel="noopener">Local Workforce Development Board (LWDB) regional scholarships</a></li>
+          <li><a href="https://www.kheaa.com/web/scholarships-grants.faces" target="_blank" rel="noopener">Other scholarships &amp; grants (KHEAA)</a></li>
         </ul>
       </div>
       <div class="bh-funding-col bh-funding-col-3">
         <div class="bh-funding-col-title">Graduate / Licensed</div>
         <ul class="bh-funding-list">
-          <li>Employer Tuition Assistance</li>
-          <li>Registered Apprenticeship Programs</li>
-          <li>LWDB regional scholarship opportunities</li>
+          <li>Employer Tuition Assistance<span class="bh-funding-note">Contact your employer to ask if available</span></li>
+          <li><a href="https://kyworks.ky.gov/Services/Pages/Career-Interests.aspx" target="_blank" rel="noopener">Registered Apprenticeship Programs</a></li>
+          <li><a href="https://kwib.ky.gov/Local-Boards/Pages/default.aspx" target="_blank" rel="noopener">Local Workforce Development Board (LWDB) regional scholarships</a></li>
+          <li><a href="https://www.kheaa.com/web/scholarships-grants.faces" target="_blank" rel="noopener">Other scholarships &amp; grants (KHEAA)</a></li>
         </ul>
       </div>
     </div>
@@ -748,8 +908,8 @@
       });
       if (totalCount === 0) return;
 
-      html += '<div class="bh-mobile-section' + (idx === 0 ? ' is-open' : '') + '" style="--row-color: ' + meta.color + '; --row-color-soft: ' + meta.soft + '" data-row="' + rowKey + '">' +
-        '<button class="bh-mobile-section-header" type="button" aria-expanded="' + (idx === 0 ? 'true' : 'false') + '">' +
+      html += '<div class="bh-mobile-section" style="--row-color: ' + meta.color + '; --row-color-soft: ' + meta.soft + '" data-row="' + rowKey + '">' +
+        '<button class="bh-mobile-section-header" type="button" aria-expanded="false">' +
           '<div>' +
             '<div class="bh-mobile-section-title">' + meta.label + '</div>' +
             '<div class="bh-mobile-section-sub">' + meta.sub + '</div>' +
@@ -778,6 +938,95 @@
         const isOpen = section.classList.toggle('is-open');
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
+    });
+  }
+
+  // ============ DIAGRAM (clickable visual pathway map) ============
+  const diagram = document.getElementById('bh-diagram');
+  if (diagram) {
+    let html = '';
+
+    // Header row: corner cell + 4 column headers
+    html += '<div class="bh-d-corner">Education ↓ / Area →</div>';
+    Object.keys(COL_META).forEach(function(col) {
+      html += '<div class="bh-d-col-head">' + COL_META[col].replace(/ & /g, ' &amp; ').replace(/, /g, ',<br>') + '</div>';
+    });
+
+    // Data rows
+    ['hs', 'le', 'ab', 'ad'].forEach(function(rowKey) {
+      const meta = ROW_META[rowKey];
+      const livedClass = rowKey === 'le' ? ' is-lived' : '';
+
+      // Row header (clickable — opens that accordion section)
+      html += '<button class="bh-d-row-head' + livedClass + '" data-jump-row="' + rowKey + '"' +
+        ' style="--row-color: ' + meta.color + '; --row-color-soft: ' + meta.soft + '" type="button">' +
+        '<span class="bh-d-row-head-label">' + meta.label + '</span>' +
+        '<span class="bh-d-row-head-sub">' + meta.sub + '</span>' +
+      '</button>';
+
+      // Four cells (one per career area)
+      Object.keys(COL_META).forEach(function(col) {
+        const k = rowKey + '-' + col;
+        const cellRoles = ROLES[k] || [];
+        const isEmpty = cellRoles.length === 0;
+        const cellClass = 'bh-d-cell' + livedClass + (isEmpty ? ' is-empty' : '');
+
+        if (isEmpty) {
+          html += '<div class="' + cellClass + '" style="--row-color: ' + meta.color + '; --row-color-soft: ' + meta.soft + '"></div>';
+        } else {
+          html += '<div class="' + cellClass + '" data-jump-row="' + rowKey + '" style="--row-color: ' + meta.color + '; --row-color-soft: ' + meta.soft + '">';
+          cellRoles.forEach(function(role) {
+            html += '<button class="bh-d-chip" data-jump-row="' + rowKey + '"' +
+              ' data-jump-name="' + role.name.replace(/"/g, '&quot;') + '" type="button">' +
+              role.name +
+            '</button>';
+          });
+          html += '</div>';
+        }
+      });
+    });
+
+    diagram.innerHTML = html;
+
+    // Helper: open the accordion section for a row and scroll to it
+    function jumpToAccordion(rowKey, roleName) {
+      const section = document.querySelector('.bh-mobile-section[data-row="' + rowKey + '"]');
+      if (!section) return;
+
+      // Open the section if it's not already open
+      if (!section.classList.contains('is-open')) {
+        section.classList.add('is-open');
+        const header = section.querySelector('.bh-mobile-section-header');
+        if (header) header.setAttribute('aria-expanded', 'true');
+      }
+
+      // If a specific role was requested, click its button to open the detail panel
+      if (roleName) {
+        const roleBtn = section.querySelector('.bh-role[data-name="' + roleName.replace(/"/g, '&quot;') + '"]');
+        if (roleBtn) {
+          roleBtn.click();
+          return; // detail panel scroll handles the rest
+        }
+      }
+
+      // Otherwise just scroll the section into view
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Wire diagram clicks
+    diagram.addEventListener('click', function(e) {
+      // Chip click takes precedence (more specific)
+      const chip = e.target.closest('.bh-d-chip');
+      if (chip) {
+        e.stopPropagation();
+        jumpToAccordion(chip.getAttribute('data-jump-row'), chip.getAttribute('data-jump-name'));
+        return;
+      }
+      // Row header or whole cell click
+      const jumpEl = e.target.closest('[data-jump-row]');
+      if (jumpEl) {
+        jumpToAccordion(jumpEl.getAttribute('data-jump-row'), null);
+      }
     });
   }
 
@@ -863,10 +1112,16 @@
       '</div>';
     }
 
+    // Only show "Path to entry" if BLS's typical education matches the
+    // pathway level Beth assigned this role. When they disagree (e.g., a
+    // role placed in the Associates/Bachelors row but mapped to a SOC code
+    // that BLS classifies as Master's-level), the row label in the
+    // accordion is the authoritative guidance and we hide this section.
+    const educationMatches = doesEducationMatchPathway(state.rowKey, data.education);
     const metaPills = [];
-    if (data.education) metaPills.push('🎓 ' + data.education);
+    if (educationMatches && data.education) metaPills.push('🎓 ' + data.education);
     if (data.training) metaPills.push('📋 ' + data.training);
-    if (metaPills.length) {
+    if (educationMatches && metaPills.length) {
       html += '<div class="bh-detail-section">' +
         '<div class="bh-detail-section-title">Path to entry</div>' +
         '<div class="bh-detail-meta">' +
@@ -883,10 +1138,27 @@
     return html;
   }
 
+  /* Returns true if BLS's typical education level matches the pathway row
+     Beth assigned this role to. The Lived Experience row is treated as
+     always matching (it's about experience, not formal education). */
+  function doesEducationMatchPathway(rowKey, education) {
+    if (!education) return false;
+    if (rowKey === 'le') return true; // Lived Experience — never hide
+
+    const PATHWAY_EDU = {
+      'hs': ['High school diploma or equivalent', 'Postsecondary nondegree award', 'Some college, no degree', 'No formal educational credential'],
+      'ab': ["Associate's degree", "Bachelor's degree"],
+      'ad': ["Master's degree", 'Doctoral or professional degree']
+    };
+    const allowed = PATHWAY_EDU[rowKey] || [];
+    return allowed.indexOf(education) !== -1;
+  }
+
   function renderDetailHeader(state) {
     const meta = ROW_META[state.rowKey] || ROW_META.hs;
     const data = SOC_DATA[state.activeSoc];
-    const eyebrow = meta.label + (data && data.education ? ' · ' + data.education : '');
+    const educationMatches = data && doesEducationMatchPathway(state.rowKey, data.education);
+    const eyebrow = meta.label + (educationMatches && data.education ? ' · ' + data.education : '');
     const categoryLine = data ? 'Workforce category: ' + data.title : '';
     return '<div class="bh-detail-header">' +
       '<div class="bh-detail-header-text">' +
