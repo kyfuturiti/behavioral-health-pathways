@@ -582,10 +582,10 @@
   .bh-funding-col-2 .bh-funding-list a:hover { color: var(--bh-blue); border-bottom-color: var(--bh-blue); }
   .bh-funding-col-3 .bh-funding-list a:hover { color: var(--bh-green); border-bottom-color: var(--bh-green); }
   .bh-funding-list a::after {
-    content: " ↗";
+    content: "\00a0↗";
     font-size: 10px;
     opacity: 0.5;
-    margin-left: 1px;
+    white-space: nowrap;
   }
   .bh-funding-list .bh-funding-note {
     display: block;
