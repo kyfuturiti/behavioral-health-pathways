@@ -3,93 +3,531 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kentucky Behavioral Health Career Pathways</title>
+<title>Kentucky Behavioral Health Career Pathways | Futuriti</title>
+<meta name="description" content="Explore Kentucky's behavioral health and disability services career pathways — from entry-level certifications to advanced degrees. See real wages, education requirements, and how to pay for training.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <style>
   /* ============================================================================
-     FUTURITI EMBED — KENTUCKY BEHAVIORAL HEALTH CAREER PATHWAYS
-     All styles scoped under .bh-pathways to avoid host-page conflicts.
-     SOC mappings: provided by Beth Kuhn, KY DBHDID (March 2026)
-     Occupation data: Futuriti CCAP_Occupations dataset (April 27, 2026)
+     KENTUCKY BEHAVIORAL HEALTH CAREER PATHWAYS — full page
+     Career pathway data: KY Dept. for Behavioral Health, Developmental and
+     Intellectual Disabilities (Beth Kuhn, March 2026).
+     Wage and employment data: Kentucky Center for Statistics (KYSTATS).
+  ============================================================================ */
+
+  :root {
+    /* Light 2026 SaaS palette — indigo → violet → purple → coral */
+    --bh-indigo: #6366F1;
+    --bh-violet: #8B5CF6;
+    --bh-purple: #A855F7;
+    --bh-coral: #FB7185;
+    --bh-peach: #FDA4AF;
+
+    /* Kept under same variable names so existing chart styles still work */
+    --bh-blue: #6366F1;    /* indigo for "Associates/Bachelors" row */
+    --bh-green: #10B981;   /* fresh emerald for "Advanced Degree" row */
+    --bh-lime: #C7F284;    /* softer lime accent */
+    --bh-orange: #F59E0B;  /* warm amber for "Lived Experience" row */
+
+    /* Soft pastel tints for cards */
+    --tint-lavender: #F5F3FF;
+    --tint-lilac: #FAF5FF;
+    --tint-blush: #FFF1F2;
+    --tint-peach: #FFF7ED;
+    --tint-mint: #ECFDF5;
+    --tint-indigo: #EEF2FF;
+
+    /* Neutrals */
+    --bh-ink: #1A1625;          /* deep, slightly cool black */
+    --bh-ink-soft: #4F4A5C;
+    --bh-ink-faint: #9690A6;
+    --bh-border: #ECEAF3;       /* very soft lavender-grey */
+    --bh-border-strong: #DEDAEB;
+    --bh-bg: #FAFAFB;           /* near-white canvas */
+    --bh-card: #FFFFFF;
+
+    /* Violet-tinted shadows */
+    --bh-shadow: 0 1px 2px rgba(99,102,241,0.04), 0 8px 24px rgba(139,92,246,0.06);
+    --bh-shadow-lg: 0 12px 40px rgba(139,92,246,0.12), 0 4px 12px rgba(99,102,241,0.06);
+    --bh-shadow-violet: 0 8px 24px rgba(139,92,246,0.25), 0 2px 6px rgba(99,102,241,0.15);
+
+    /* Typography — Poppins throughout */
+    --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--bh-ink);
+    line-height: 1.55;
+    background: var(--bh-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.005em;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Ambient background — layered radial gradients across the entire page */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 0%, rgba(99,102,241,0.10), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 85% 20%, rgba(168,85,247,0.10), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 50% 110%, rgba(251,113,133,0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ---------- HERO ---------- */
+  .bh-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 80px 24px 96px;
+    color: var(--bh-ink);
+  }
+  /* Three layered ambient color clouds */
+  .bh-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 700px 500px at 10% 10%, rgba(99,102,241,0.22), transparent 60%),
+      radial-gradient(ellipse 600px 400px at 90% 30%, rgba(168,85,247,0.18), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 50% 100%, rgba(251,113,133,0.16), transparent 60%);
+    pointer-events: none;
+  }
+  /* Subtle grid noise for texture */
+  .bh-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(26,22,37,0.03) 1px, transparent 0);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+  .bh-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .bh-hero-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .bh-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px; font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--bh-violet);
+    background: rgba(139,92,246,0.08);
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(139,92,246,0.15);
+  }
+  .bh-hero-eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--bh-violet);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+  }
+  .bh-draft-badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #B45309;
+    background: rgba(251,191,36,0.15);
+    border: 1px solid rgba(251,191,36,0.4);
+    padding: 5px 11px;
+    border-radius: 999px;
+  }
+  .bh-hero-title {
+    font-size: clamp(36px, 5.2vw, 68px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    margin: 0 0 24px;
+    max-width: 980px;
+    color: var(--bh-ink);
+  }
+  .bh-hero-title em {
+    font-style: italic;
+    font-weight: 600;
+    background: linear-gradient(120deg, var(--bh-indigo) 0%, var(--bh-violet) 35%, var(--bh-purple) 65%, var(--bh-coral) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    padding: 0 0.05em;
+  }
+  .bh-hero-lede {
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.6;
+    color: var(--bh-ink-soft);
+    margin: 0 0 36px;
+    max-width: 680px;
+    font-weight: 400;
+  }
+  .bh-hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .bh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: -0.005em;
+  }
+  .bh-btn-primary {
+    background: linear-gradient(135deg, var(--bh-violet) 0%, var(--bh-purple) 100%);
+    color: white;
+    box-shadow: var(--bh-shadow-violet);
+  }
+  .bh-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(139,92,246,0.35), 0 4px 8px rgba(99,102,241,0.2);
+  }
+  .bh-btn-ghost {
+    background: rgba(255,255,255,0.7);
+    color: var(--bh-ink);
+    border-color: var(--bh-border-strong);
+    backdrop-filter: blur(8px);
+  }
+  .bh-btn-ghost:hover {
+    background: white;
+    border-color: var(--bh-violet);
+    color: var(--bh-violet);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(139,92,246,0.10);
+  }
+
+  /* ---------- WHY KENTUCKY NEEDS THIS ---------- */
+  .bh-why {
+    background: transparent;
+    padding: 80px 24px;
+    position: relative;
+  }
+  .bh-why-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .bh-section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--bh-violet);
+    background: rgba(139,92,246,0.08);
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(139,92,246,0.15);
+    margin-bottom: 20px;
+  }
+  .bh-section-title {
+    font-family: var(--font-body);
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+    color: var(--bh-ink);
+    max-width: 820px;
+    line-height: 1.1;
+  }
+  .bh-section-title em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--bh-violet);
+    letter-spacing: -0.02em;
+  }
+  .bh-section-intro {
+    font-size: 17px;
+    color: var(--bh-ink-soft);
+    margin: 0 0 40px;
+    max-width: 720px;
+    line-height: 1.65;
+  }
+  .bh-why-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .bh-why-stat {
+    border-radius: 24px;
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--bh-border);
+    transition: all 0.25s ease;
+  }
+  .bh-why-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--bh-shadow-lg);
+  }
+  .bh-why-stat:nth-child(1) {
+    background: linear-gradient(160deg, var(--tint-indigo) 0%, white 90%);
+  }
+  .bh-why-stat:nth-child(2) {
+    background: linear-gradient(160deg, var(--tint-peach) 0%, white 90%);
+  }
+  .bh-why-stat:nth-child(3) {
+    background: linear-gradient(160deg, var(--tint-mint) 0%, white 90%);
+  }
+  .bh-why-stat-accent { display: none; }
+  .bh-why-stat-value {
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 60px);
+    color: var(--bh-ink);
+    letter-spacing: -0.035em;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+  .bh-why-stat:nth-child(1) .bh-why-stat-value {
+    background: linear-gradient(120deg, var(--bh-indigo), var(--bh-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bh-why-stat:nth-child(2) .bh-why-stat-value {
+    background: linear-gradient(120deg, #EA580C, var(--bh-coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bh-why-stat:nth-child(3) .bh-why-stat-value {
+    background: linear-gradient(120deg, var(--bh-green), var(--bh-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bh-why-stat-label {
+    font-size: 14.5px;
+    color: var(--bh-ink-soft);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .bh-why-stat-prefix {
+    font-weight: 500;
+    color: var(--bh-ink-soft);
+    margin-bottom: 4px;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .bh-why-stat-source {
+    font-size: 12px;
+    color: var(--bh-ink-faint);
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--bh-border);
+  }
+
+  /* ---------- WHO THIS IS FOR ---------- */
+  .bh-who {
+    padding: 80px 24px;
+    position: relative;
+  }
+  .bh-who-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .bh-audiences {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .bh-audience {
+    background: white;
+    border: 1px solid var(--bh-border);
+    border-radius: 20px;
+    padding: 26px 22px;
+    transition: all 0.25s ease;
+  }
+  .bh-audience:hover {
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: var(--bh-shadow-lg);
+  }
+  .bh-audience-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .bh-audience:nth-child(1) .bh-audience-icon {
+    background: linear-gradient(135deg, var(--tint-indigo), var(--tint-lavender));
+    color: var(--bh-indigo);
+  }
+  .bh-audience:nth-child(2) .bh-audience-icon {
+    background: linear-gradient(135deg, var(--tint-lilac), var(--tint-blush));
+    color: var(--bh-purple);
+  }
+  .bh-audience:nth-child(3) .bh-audience-icon {
+    background: linear-gradient(135deg, var(--tint-blush), var(--tint-peach));
+    color: var(--bh-coral);
+  }
+  .bh-audience:nth-child(4) .bh-audience-icon {
+    background: linear-gradient(135deg, var(--tint-peach), var(--tint-mint));
+    color: var(--bh-green);
+  }
+  .bh-audience-title {
+    font-size: 16.5px; font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--bh-ink);
+    letter-spacing: -0.015em;
+  }
+  .bh-audience-text {
+    font-size: 14px;
+    color: var(--bh-ink-soft);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ---------- HOW TO USE ---------- */
+  .bh-howto {
+    padding: 64px 24px 48px;
+    position: relative;
+  }
+  .bh-howto-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .bh-howto-title {
+    font-family: var(--font-body);
+    font-size: clamp(22px, 2.6vw, 30px);
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: var(--bh-ink);
+    letter-spacing: -0.02em;
+  }
+  .bh-howto-title em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--bh-violet);
+  }
+  .bh-howto-text {
+    font-size: 16px;
+    color: var(--bh-ink-soft);
+    margin: 0 auto 36px;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+  .bh-howto-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .bh-howto-step {
+    background: white;
+    border: 1px solid var(--bh-border);
+    border-radius: 18px;
+    padding: 22px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: all 0.2s ease;
+  }
+  .bh-howto-step:hover {
+    border-color: var(--bh-border-strong);
+    box-shadow: var(--bh-shadow);
+  }
+  .bh-step-num {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--bh-violet), var(--bh-purple));
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(139,92,246,0.3);
+  }
+  .bh-step-text {
+    font-size: 14px;
+    color: var(--bh-ink-soft);
+    line-height: 1.55;
+  }
+  .bh-step-text strong {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--bh-ink);
+  }
+
+  /* ---------- INTRO RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .bh-why-stats { grid-template-columns: 1fr; gap: 12px; }
+    .bh-audiences { grid-template-columns: repeat(2, 1fr); }
+    .bh-howto-steps { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .bh-hero { padding: 40px 20px 56px; }
+    .bh-why, .bh-who { padding: 40px 20px; }
+    .bh-howto { padding: 36px 20px 24px; }
+    .bh-audiences { grid-template-columns: 1fr; }
+    .bh-hero-ctas { flex-direction: column; align-items: stretch; }
+    .bh-btn { justify-content: center; }
+  }
+
+  /* ============================================================================
+     CHART SECTION (pathway diagram + accordion)
   ============================================================================ */
 
   .bh-pathways {
-    --bh-purple: #6B46C1;
-    --bh-blue: #3B5BA9;
-    --bh-green: #16A34A;
-    --bh-lime: #A3E635;
-    --bh-orange: #F59E0B;
-    --bh-ink: #1F2937;
-    --bh-ink-soft: #4B5563;
-    --bh-ink-faint: #9CA3AF;
-    --bh-border: #E5E7EB;
-    --bh-bg: #FAFAF9;
-    --bh-card: #FFFFFF;
-    --bh-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-    --bh-shadow-lg: 0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.05);
-
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: inherit;
     color: var(--bh-ink);
     line-height: 1.5;
     max-width: 800px;
     margin: 0 auto;
-    padding: 24px 16px;
-    box-sizing: border-box;
+    padding: 24px 16px 48px;
   }
-
-  .bh-pathways *, .bh-pathways *::before, .bh-pathways *::after { box-sizing: border-box; }
-
-  .bh-header { margin-bottom: 24px; }
-  .bh-eyebrow {
-    display: inline-block;
-    font-size: 12px; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--bh-purple);
-    background: #F3E8FF;
-    padding: 4px 10px; border-radius: 999px;
-    margin-bottom: 12px;
-  }
-  .bh-title {
-    font-size: 28px; font-weight: 800;
-    margin: 0 0 8px;
-    color: var(--bh-ink);
-    letter-spacing: -0.02em;
-  }
-  .bh-subtitle {
-    font-size: 16px;
-    color: var(--bh-ink-soft);
-    margin: 0; max-width: 720px;
-  }
-
-  .bh-controls {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    margin: 20px 0 16px; align-items: center;
-  }
-  .bh-controls-label {
-    font-size: 13px; font-weight: 600;
-    color: var(--bh-ink-soft); margin-right: 4px;
-  }
-  .bh-tab {
-    background: var(--bh-card);
-    border: 1.5px solid var(--bh-border);
-    color: var(--bh-ink-soft);
-    padding: 8px 14px; border-radius: 999px;
-    font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: all 0.15s ease;
-    font-family: inherit;
-  }
-  .bh-tab:hover { border-color: var(--bh-purple); color: var(--bh-purple); }
-  .bh-tab.is-active { background: var(--bh-ink); border-color: var(--bh-ink); color: white; }
 
   .bh-legend {
-    display: flex; flex-wrap: wrap; gap: 16px;
-    padding: 12px 16px;
-    background: var(--bh-bg);
-    border-radius: 8px;
-    margin-bottom: 20px;
+    display: flex; flex-wrap: wrap; gap: 18px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--bh-border);
+    border-radius: 16px;
+    margin-bottom: 24px;
     font-size: 13px;
   }
-  .bh-legend-item { display: flex; align-items: center; gap: 6px; color: var(--bh-ink-soft); }
-  .bh-legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .bh-legend-item { display: flex; align-items: center; gap: 8px; color: var(--bh-ink-soft); font-weight: 500; }
+  .bh-legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .bh-legend-asterisk {
     margin-left: auto;
     font-size: 12px;
@@ -99,64 +537,64 @@
 
   /* ---------- DIAGRAM (clickable visual pathway map) ---------- */
   .bh-diagram-wrap {
-    margin: 8px auto 24px;
+    margin: 16px auto 32px;
     max-width: 1100px;
-    /* Allow the diagram to extend wider than the 800px container */
     width: calc(100vw - 48px);
     margin-left: 50%;
     transform: translateX(-50%);
   }
   .bh-diagram-intro {
-    font-size: 13px;
+    font-style: italic;
+    font-size: 14.5px;
     color: var(--bh-ink-soft);
     text-align: center;
-    margin: 0 0 12px;
-    font-style: italic;
+    margin: 0 0 18px;
+    font-weight: 400;
   }
   .bh-diagram {
     display: grid;
-    grid-template-columns: 160px repeat(4, 1fr);
-    gap: 2px;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 1px;
     background: var(--bh-border);
     border: 1px solid var(--bh-border);
-    border-radius: 12px;
+    border-radius: 24px;
     overflow: hidden;
     box-shadow: var(--bh-shadow);
   }
   .bh-d-corner {
     background: var(--bh-card);
-    padding: 14px 12px;
+    padding: 18px 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--bh-ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    line-height: 1.3;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
   }
   .bh-d-col-head {
     background: var(--bh-card);
-    padding: 14px 10px;
+    padding: 18px 12px;
     text-align: center;
-    font-weight: 700;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 13.5px;
     color: var(--bh-ink);
-    border-bottom: 3px solid var(--bh-ink);
-    line-height: 1.25;
+    border-bottom: 2px solid var(--bh-border-strong);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
   }
   .bh-d-row-head {
     background: var(--bh-card);
-    padding: 14px 12px;
+    padding: 18px 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 3px;
-    border-left: 5px solid var(--row-color, var(--bh-purple));
+    gap: 4px;
+    border-left: 4px solid var(--row-color, var(--bh-violet));
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: all 0.2s ease;
     font-family: inherit;
     text-align: left;
     border-top: none;
@@ -164,62 +602,66 @@
     border-bottom: none;
     width: 100%;
   }
-  .bh-d-row-head:hover { background: var(--row-color-soft, #F3E8FF); }
+  .bh-d-row-head:hover {
+    background: var(--row-color-soft, var(--tint-lavender));
+  }
   .bh-d-row-head-label {
-    font-weight: 700;
-    font-size: 12px;
+    font-weight: 600;
+    font-size: 13px;
     color: var(--bh-ink);
-    line-height: 1.2;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
   }
   .bh-d-row-head-sub {
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 400;
     color: var(--bh-ink-soft);
-    line-height: 1.3;
+    line-height: 1.35;
   }
   .bh-d-row-head.is-lived {
     border-left-color: var(--bh-orange);
   }
   .bh-d-cell {
     background: var(--bh-card);
-    padding: 8px 7px;
+    padding: 10px 8px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: background 0.2s ease;
   }
-  .bh-d-cell:hover { background: var(--row-color-soft, #F3E8FF); }
+  .bh-d-cell:hover { background: var(--row-color-soft, var(--tint-lavender)); }
   .bh-d-cell.is-empty {
     background: repeating-linear-gradient(45deg,
-      #FAFAF9, #FAFAF9 5px, #F3F4F6 5px, #F3F4F6 10px);
+      #FAFAFB, #FAFAFB 5px, #F4F2F8 5px, #F4F2F8 10px);
     cursor: default;
   }
   .bh-d-cell.is-empty:hover {
     background: repeating-linear-gradient(45deg,
-      #FAFAF9, #FAFAF9 5px, #F3F4F6 5px, #F3F4F6 10px);
+      #FAFAFB, #FAFAFB 5px, #F4F2F8 5px, #F4F2F8 10px);
   }
   .bh-d-chip {
     background: white;
     border: 1px solid var(--bh-border);
-    border-radius: 5px;
-    padding: 4px 7px;
+    border-radius: 8px;
+    padding: 5px 9px;
     font-size: 11px;
     font-weight: 500;
     color: var(--bh-ink);
-    line-height: 1.3;
+    line-height: 1.35;
     cursor: pointer;
     text-align: left;
     font-family: inherit;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     display: block;
     width: 100%;
+    letter-spacing: -0.005em;
   }
   .bh-d-chip:hover {
-    border-color: var(--row-color, var(--bh-purple));
+    border-color: var(--row-color, var(--bh-violet));
     background: white;
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(139,92,246,0.10);
     z-index: 1;
     position: relative;
   }
@@ -230,11 +672,11 @@
   }
   /* On medium screens, simpler grid columns */
   @media (max-width: 900px) {
-    .bh-diagram { grid-template-columns: 130px repeat(4, 1fr); }
-    .bh-d-row-head-label { font-size: 11px; }
-    .bh-d-row-head-sub { font-size: 9px; }
-    .bh-d-chip { font-size: 10px; padding: 3px 6px; }
-    .bh-d-col-head { font-size: 12px; padding: 10px 6px; }
+    .bh-diagram { grid-template-columns: 140px repeat(4, 1fr); }
+    .bh-d-row-head-label { font-size: 12px; }
+    .bh-d-row-head-sub { font-size: 10px; }
+    .bh-d-chip { font-size: 10.5px; padding: 4px 7px; }
+    .bh-d-col-head { font-size: 12.5px; padding: 14px 8px; }
   }
   .bh-grid {
     display: grid;
@@ -289,184 +731,190 @@
 
   .bh-role {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 6px;
+    gap: 8px;
     background: white;
     border: 1px solid var(--bh-border);
-    border-radius: 7px;
-    padding: 8px 10px;
-    font-size: 13px; font-weight: 500;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 13.5px; font-weight: 500;
     color: var(--bh-ink);
     cursor: pointer;
-    transition: all 0.15s ease;
-    text-align: left; line-height: 1.3;
+    transition: all 0.2s ease;
+    text-align: left; line-height: 1.35;
     font-family: inherit; width: 100%;
+    letter-spacing: -0.005em;
   }
   .bh-role:hover {
-    border-color: var(--row-color, var(--bh-purple));
-    background: var(--row-color-soft, #F3E8FF);
+    border-color: var(--row-color, var(--bh-violet));
+    background: var(--row-color-soft, var(--tint-lavender));
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(139,92,246,0.10);
   }
   .bh-role.is-active {
-    border-color: var(--row-color, var(--bh-purple));
-    background: var(--row-color-soft, #F3E8FF);
-    box-shadow: 0 0 0 2px var(--row-color, var(--bh-purple));
+    border-color: var(--row-color, var(--bh-violet));
+    background: var(--row-color-soft, var(--tint-lavender));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--row-color, var(--bh-violet)) 20%, transparent);
   }
   .bh-role-name { flex: 1; min-width: 0; }
   .bh-role-asterisk {
-    color: var(--row-color, var(--bh-purple));
-    font-weight: 800;
+    color: var(--row-color, var(--bh-violet));
+    font-weight: 700;
     margin-left: 2px;
   }
   .bh-role .bh-role-icon {
     flex-shrink: 0; width: 14px; height: 14px;
-    opacity: 0.4; transition: all 0.15s ease;
+    opacity: 0.4; transition: all 0.2s ease;
   }
   .bh-role:hover .bh-role-icon, .bh-role.is-active .bh-role-icon { opacity: 1; }
 
   /* ---------- DETAIL PANEL ---------- */
   .bh-detail {
-    margin-top: 16px;
+    margin-top: 20px;
     background: var(--bh-card);
-    border: 1.5px solid var(--bh-border);
-    border-radius: 12px;
+    border: 1px solid var(--bh-border);
+    border-radius: 20px;
     padding: 0;
     box-shadow: var(--bh-shadow-lg);
     overflow: hidden;
-    animation: bhFadeIn 0.25s ease;
-    border-top: 4px solid var(--detail-color, var(--bh-purple));
+    animation: bhFadeIn 0.3s ease;
+    border-top: 3px solid var(--detail-color, var(--bh-violet));
   }
   @keyframes bhFadeIn {
     from { opacity: 0; transform: translateY(-8px); }
     to { opacity: 1; transform: translateY(0); }
   }
   .bh-detail-header {
-    padding: 20px 24px 16px;
-    background: var(--detail-color-soft, #F3E8FF);
+    padding: 24px 28px 20px;
+    background: var(--detail-color-soft, var(--tint-lavender));
     border-bottom: 1px solid var(--bh-border);
     display: flex; align-items: flex-start; justify-content: space-between;
     gap: 16px;
   }
   .bh-detail-header-text { flex: 1; min-width: 0; }
   .bh-detail-eyebrow {
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--detail-color, var(--bh-purple));
-    margin-bottom: 4px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--detail-color, var(--bh-violet));
+    margin-bottom: 6px;
   }
   .bh-detail-title {
-    font-size: 22px; font-weight: 800;
+    font-family: var(--font-body);
+    font-size: 24px; font-weight: 600;
     margin: 0 0 4px;
     color: var(--bh-ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     line-height: 1.2;
   }
   .bh-detail-soc {
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--bh-ink-soft);
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 400;
   }
   .bh-detail-close {
     background: white;
     border: 1px solid var(--bh-border);
-    width: 32px; height: 32px;
-    border-radius: 8px;
+    width: 34px; height: 34px;
+    border-radius: 999px;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     color: var(--bh-ink-soft);
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     flex-shrink: 0;
   }
-  .bh-detail-close:hover { background: var(--bh-bg); color: var(--bh-ink); }
+  .bh-detail-close:hover {
+    background: var(--bh-bg);
+    color: var(--bh-ink);
+    border-color: var(--bh-border-strong);
+  }
 
-  .bh-detail-body { padding: 20px 24px; }
+  .bh-detail-body { padding: 24px 28px; }
 
   .bh-soc-tabs {
-    display: flex; flex-wrap: wrap; gap: 6px;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--bh-border);
   }
   .bh-soc-tabs-label {
     width: 100%;
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.05em;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0;
     color: var(--bh-ink-soft);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
   .bh-soc-tab {
     background: white;
-    border: 1.5px solid var(--bh-border);
+    border: 1px solid var(--bh-border);
     color: var(--bh-ink-soft);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 500;
     cursor: pointer;
     font-family: inherit;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease;
     text-align: left;
     line-height: 1.3;
+    letter-spacing: -0.005em;
   }
   .bh-soc-tab:hover {
     border-color: var(--detail-color);
     color: var(--detail-color);
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(139,92,246,0.10);
   }
   .bh-soc-tab.is-active {
     background: var(--detail-color);
     border-color: var(--detail-color);
     color: white;
-  }
-  .bh-soc-tab-code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-weight: 700;
-    margin-right: 4px;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--detail-color) 30%, transparent);
   }
 
   .bh-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 14px;
+    margin-bottom: 24px;
   }
   .bh-stat {
     background: var(--bh-bg);
-    border-radius: 8px;
-    padding: 12px;
+    border-radius: 14px;
+    padding: 16px;
     border: 1px solid var(--bh-border);
   }
   .bh-stat-label {
-    font-size: 11px; font-weight: 600;
+    font-size: 11.5px; font-weight: 500;
     color: var(--bh-ink-soft);
-    text-transform: uppercase; letter-spacing: 0.05em;
-    margin-bottom: 4px;
+    letter-spacing: 0;
+    margin-bottom: 6px;
   }
   .bh-stat-value {
-    font-size: 18px; font-weight: 800;
+    font-weight: 700;
+    font-size: 22px;
     color: var(--bh-ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
   }
   .bh-stat-sub {
-    font-size: 11px;
-    color: var(--bh-ink-soft);
-    margin-top: 2px;
+    font-size: 11.5px;
+    color: var(--bh-ink-faint);
+    margin-top: 4px;
   }
   .bh-demand-pill {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 12px; font-weight: 700;
-    padding: 3px 8px; border-radius: 999px;
-    text-transform: uppercase; letter-spacing: 0.04em;
+    font-style: normal;
+    font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 999px;
+    letter-spacing: 0;
   }
-  .bh-demand-High { background: #DCFCE7; color: #166534; }
+  .bh-demand-High { background: #D1FAE5; color: #065F46; }
   .bh-demand-Medium { background: #FEF3C7; color: #92400E; }
   .bh-demand-Low { background: #FEE2E2; color: #991B1B; }
 
   .bh-wage-bar {
-    margin-top: 6px;
+    margin-top: 8px;
     background: white;
-    border-radius: 6px;
+    border-radius: 999px;
     height: 6px;
     overflow: hidden;
     position: relative;
@@ -474,112 +922,126 @@
   }
   .bh-wage-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--bh-lime), var(--bh-green));
-    border-radius: 6px;
+    background: linear-gradient(90deg, var(--bh-indigo), var(--bh-violet));
+    border-radius: 999px;
   }
 
-  .bh-detail-section { margin-bottom: 16px; }
+  .bh-detail-section { margin-bottom: 20px; }
   .bh-detail-section-title {
-    font-size: 13px; font-weight: 700;
-    color: var(--bh-ink);
-    margin: 0 0 6px;
-    text-transform: uppercase; letter-spacing: 0.04em;
+    font-size: 12px; font-weight: 600;
+    color: var(--bh-ink-soft);
+    margin: 0 0 8px;
+    letter-spacing: 0;
   }
   .bh-detail-section-body {
-    font-size: 14px;
+    font-size: 14.5px;
     color: var(--bh-ink-soft);
-    line-height: 1.55;
+    line-height: 1.6;
     margin: 0;
   }
   .bh-detail-meta {
-    display: flex; flex-wrap: wrap; gap: 6px;
-    margin-top: 8px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 10px;
   }
   .bh-detail-meta-pill {
     background: var(--bh-bg);
     border: 1px solid var(--bh-border);
-    border-radius: 6px;
-    padding: 4px 10px;
-    font-size: 12px;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12.5px;
     color: var(--bh-ink-soft);
+    font-weight: 500;
   }
   .bh-detail-note {
-    background: #FFFBEB;
+    background: var(--tint-peach);
     border: 1px solid #FDE68A;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 13px;
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 13.5px;
     color: #78350F;
-    margin-bottom: 16px;
-    line-height: 1.5;
+    margin-bottom: 20px;
+    line-height: 1.55;
   }
   .bh-detail-cta {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--bh-ink);
+    background: linear-gradient(135deg, var(--bh-violet) 0%, var(--bh-purple) 100%);
     color: white;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 13px; font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-size: 13.5px; font-weight: 500;
     text-decoration: none;
-    margin-top: 8px;
-    transition: all 0.15s ease;
+    margin-top: 12px;
+    transition: all 0.2s ease;
+    box-shadow: var(--bh-shadow-violet);
+    letter-spacing: -0.005em;
   }
-  .bh-detail-cta:hover { background: #000; transform: translateY(-1px); }
+  .bh-detail-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(139,92,246,0.35);
+  }
 
   /* ---------- FUNDING PANEL ---------- */
   .bh-funding {
-    margin-top: 24px;
+    margin-top: 32px;
     background: var(--bh-card);
     border: 1px solid var(--bh-border);
-    border-radius: 12px;
-    padding: 24px;
+    border-radius: 24px;
+    padding: 32px;
     box-shadow: var(--bh-shadow);
   }
-  .bh-funding-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .bh-funding-header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
   .bh-funding-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--bh-lime), var(--bh-green));
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--bh-violet), var(--bh-purple));
     display: flex; align-items: center; justify-content: center;
     color: white; flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(139,92,246,0.25);
   }
-  .bh-funding-title { font-size: 18px; font-weight: 800; margin: 0; color: var(--bh-ink); }
-  .bh-funding-sub { font-size: 14px; color: var(--bh-ink-soft); margin: 0 0 16px; }
-  .bh-funding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .bh-funding-col { border-radius: 10px; padding: 16px; border: 1.5px solid; }
-  .bh-funding-col-1 { background: #F5F3FF; border-color: #DDD6FE; }
-  .bh-funding-col-2 { background: #EFF6FF; border-color: #BFDBFE; }
-  .bh-funding-col-3 { background: #F0FDF4; border-color: #BBF7D0; }
+  .bh-funding-title {
+    font-family: var(--font-body);
+    font-size: 22px; font-weight: 600;
+    margin: 0; color: var(--bh-ink);
+    letter-spacing: -0.02em;
+  }
+  .bh-funding-sub { font-size: 14.5px; color: var(--bh-ink-soft); margin: 0 0 24px; line-height: 1.55; }
+  .bh-funding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .bh-funding-col { border-radius: 18px; padding: 22px 20px; border: 1px solid; }
+  .bh-funding-col-1 { background: var(--tint-lilac); border-color: rgba(168,85,247,0.15); }
+  .bh-funding-col-2 { background: var(--tint-indigo); border-color: rgba(99,102,241,0.15); }
+  .bh-funding-col-3 { background: var(--tint-mint); border-color: rgba(16,185,129,0.15); }
   .bh-funding-col-title {
-    font-size: 13px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.05em;
-    margin-bottom: 10px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
   }
   .bh-funding-col-1 .bh-funding-col-title { color: var(--bh-purple); }
-  .bh-funding-col-2 .bh-funding-col-title { color: var(--bh-blue); }
+  .bh-funding-col-2 .bh-funding-col-title { color: var(--bh-indigo); }
   .bh-funding-col-3 .bh-funding-col-title { color: var(--bh-green); }
-  .bh-funding-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  .bh-funding-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
   .bh-funding-list li {
-    font-size: 13px; color: var(--bh-ink);
-    padding-left: 18px; position: relative; line-height: 1.4;
+    font-size: 13.5px; color: var(--bh-ink);
+    padding-left: 16px; position: relative; line-height: 1.5;
+    font-weight: 500;
   }
   .bh-funding-list li::before {
     content: ""; position: absolute;
-    left: 0; top: 7px;
-    width: 6px; height: 6px; border-radius: 2px;
+    left: 0; top: 8px;
+    width: 5px; height: 5px; border-radius: 50%;
   }
   .bh-funding-col-1 .bh-funding-list li::before { background: var(--bh-purple); }
-  .bh-funding-col-2 .bh-funding-list li::before { background: var(--bh-blue); }
+  .bh-funding-col-2 .bh-funding-list li::before { background: var(--bh-indigo); }
   .bh-funding-col-3 .bh-funding-list li::before { background: var(--bh-green); }
 
   .bh-funding-list a {
     color: inherit;
     text-decoration: none;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease, color 0.15s ease;
+    transition: border-color 0.2s ease, color 0.2s ease;
   }
   .bh-funding-col-1 .bh-funding-list a:hover { color: var(--bh-purple); border-bottom-color: var(--bh-purple); }
-  .bh-funding-col-2 .bh-funding-list a:hover { color: var(--bh-blue); border-bottom-color: var(--bh-blue); }
+  .bh-funding-col-2 .bh-funding-list a:hover { color: var(--bh-indigo); border-bottom-color: var(--bh-indigo); }
   .bh-funding-col-3 .bh-funding-list a:hover { color: var(--bh-green); border-bottom-color: var(--bh-green); }
   .bh-funding-list a::after {
     content: "\00a0↗";
@@ -589,73 +1051,203 @@
   }
   .bh-funding-list .bh-funding-note {
     display: block;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--bh-ink-soft);
     font-style: italic;
     margin-top: 2px;
+    font-weight: 400;
   }
 
   .bh-help {
-    margin-top: 16px;
-    font-size: 13px; color: var(--bh-ink-soft);
-    text-align: center; font-style: italic;
+    margin-top: 20px;
+    font-size: 14px; color: var(--bh-ink-soft);
+    text-align: center;
+    font-style: italic;
   }
   .bh-source {
-    margin-top: 12px;
-    font-size: 11px;
+    margin-top: 14px;
+    font-size: 11.5px;
     color: var(--bh-ink-faint);
     text-align: center;
+    line-height: 1.55;
   }
 
+  /* ---------- EXPLORE MORE CTA ---------- */
+  .bh-explore {
+    margin-top: 32px;
+    background: linear-gradient(135deg, var(--tint-lilac) 0%, var(--tint-blush) 60%, var(--tint-peach) 100%);
+    border: 1px solid rgba(168,85,247,0.18);
+    border-radius: 24px;
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .bh-explore::before {
+    content: "";
+    position: absolute;
+    right: -80px; top: -80px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(168,85,247,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .bh-explore::after {
+    content: "";
+    position: absolute;
+    left: -60px; bottom: -100px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(251,113,133,0.10), transparent 70%);
+    pointer-events: none;
+  }
+  .bh-explore-text {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .bh-explore-eyebrow {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--bh-violet);
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+  .bh-explore-title {
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 600;
+    color: var(--bh-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin: 0 0 6px;
+  }
+  .bh-explore-title em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--bh-violet);
+  }
+  .bh-explore-sub {
+    font-size: 14.5px;
+    color: var(--bh-ink-soft);
+    margin: 0;
+    line-height: 1.55;
+    max-width: 540px;
+  }
+  .bh-explore-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--bh-violet) 0%, var(--bh-purple) 100%);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: var(--bh-shadow-violet);
+    letter-spacing: -0.005em;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .bh-explore-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(139,92,246,0.35), 0 4px 8px rgba(99,102,241,0.2);
+  }
+  @media (max-width: 700px) {
+    .bh-explore { padding: 28px 24px; }
+    .bh-explore-cta { width: 100%; justify-content: center; }
+  }
   /* ---------- ACCORDION (primary view at all screen sizes) ---------- */
   .bh-mobile-section {
     background: var(--bh-card);
     border: 1px solid var(--bh-border);
-    border-left: 5px solid var(--row-color, var(--bh-purple));
-    border-radius: 10px;
+    border-left: 4px solid var(--row-color, var(--bh-violet));
+    border-radius: 16px;
     margin-bottom: 12px;
     overflow: hidden;
     box-shadow: var(--bh-shadow);
   }
   .bh-mobile-section-header {
-    padding: 16px 20px; cursor: pointer;
+    padding: 20px 22px; cursor: pointer;
     display: flex; align-items: center; justify-content: space-between;
     gap: 8px; background: white; border: none;
     width: 100%; text-align: left; font-family: inherit;
-    transition: background 0.15s ease;
+    transition: background 0.2s ease;
   }
   .bh-mobile-section-header:hover { background: var(--bh-bg); }
-  .bh-mobile-section-title { font-size: 16px; font-weight: 700; color: var(--bh-ink); margin: 0 0 2px; }
-  .bh-mobile-section-sub { font-size: 13px; color: var(--bh-ink-soft); margin: 0; }
-  .bh-chevron { flex-shrink: 0; transition: transform 0.2s ease; }
+  .bh-mobile-section-title {
+    font-family: var(--font-body);
+    font-size: 17px; font-weight: 600;
+    color: var(--bh-ink);
+    margin: 0 0 3px;
+    letter-spacing: -0.015em;
+  }
+  .bh-mobile-section-sub {
+    font-size: 13.5px;
+    color: var(--bh-ink-soft);
+    margin: 0;
+    font-weight: 400;
+  }
+  .bh-chevron {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    color: var(--bh-ink-faint);
+  }
   .bh-mobile-section.is-open .bh-chevron { transform: rotate(180deg); }
-  .bh-mobile-section-body { display: none; padding: 0 20px 20px; }
+  .bh-mobile-section-body { display: none; padding: 0 22px 22px; }
   .bh-mobile-section.is-open .bh-mobile-section-body { display: block; }
-  .bh-mobile-cat { margin-top: 16px; }
+  .bh-mobile-cat { margin-top: 22px; }
+  .bh-mobile-cat:first-child { margin-top: 4px; }
   .bh-mobile-cat-label {
-    font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.06em;
-    color: var(--bh-ink-soft); margin-bottom: 8px;
-    padding-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--bh-ink);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--bh-border);
   }
+  .bh-mobile-cat-label::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--bh-ink-faint);
+  }
+  /* Color-code each career area for quick visual orientation */
+  .bh-mobile-cat[data-col="counseling"] .bh-mobile-cat-label { color: var(--bh-purple); }
+  .bh-mobile-cat[data-col="counseling"] .bh-mobile-cat-label::before { background: var(--bh-purple); }
+  .bh-mobile-cat[data-col="psychology"] .bh-mobile-cat-label { color: var(--bh-coral); }
+  .bh-mobile-cat[data-col="psychology"] .bh-mobile-cat-label::before { background: var(--bh-coral); }
+  .bh-mobile-cat[data-col="nursing"] .bh-mobile-cat-label { color: var(--bh-indigo); }
+  .bh-mobile-cat[data-col="nursing"] .bh-mobile-cat-label::before { background: var(--bh-indigo); }
+  .bh-mobile-cat[data-col="disability"] .bh-mobile-cat-label { color: var(--bh-green); }
+  .bh-mobile-cat[data-col="disability"] .bh-mobile-cat-label::before { background: var(--bh-green); }
   .bh-mobile-cat-roles { display: flex; flex-direction: column; gap: 6px; }
 
   /* On all screen sizes, career-area sections stack vertically inside
      each expanded accordion section. Single-column for clean readability. */
   @media (min-width: 700px) {
-    .bh-mobile-section-body { padding: 0 20px 24px; }
+    .bh-mobile-section-body { padding: 0 22px 26px; }
   }
 
   @media (max-width: 880px) {
     .bh-pathways { padding: 16px 12px; }
-    .bh-title { font-size: 22px; }
-    .bh-subtitle { font-size: 14px; }
     .bh-funding-grid { grid-template-columns: 1fr; }
     .bh-stats { grid-template-columns: repeat(2, 1fr); }
-    .bh-detail-header { padding: 16px; }
-    .bh-detail-body { padding: 16px; }
-    .bh-detail-title { font-size: 18px; }
+    .bh-detail-header { padding: 20px; }
+    .bh-detail-body { padding: 20px; }
+    .bh-detail-title { font-size: 20px; }
   }
 
   /* Hide the old desktop grid at all sizes — accordion is now primary */
@@ -664,28 +1256,124 @@
 </head>
 <body>
 
-<div class="bh-pathways">
-
-  <header class="bh-header">
-    <span class="bh-eyebrow">Career Pathways</span>
-    <h2 class="bh-title">Find Your Path Into Kentucky's Behavioral Health Workforce</h2>
-    <p class="bh-subtitle">Whether you're starting with a high school diploma, building on lived experience, or pursuing an advanced degree, there's a behavioral health career for you. Click any role to see Kentucky-specific wages, education requirements, and projected job growth.</p>
-  </header>
-
-  <div class="bh-controls" role="tablist" aria-label="Filter by career area">
-    <span class="bh-controls-label">Filter by area:</span>
-    <button class="bh-tab is-active" data-filter="all" role="tab" aria-selected="true">All areas</button>
-    <button class="bh-tab" data-filter="counseling" role="tab" aria-selected="false">Social Work &amp; Crisis</button>
-    <button class="bh-tab" data-filter="psychology" role="tab" aria-selected="false">Psychiatry</button>
-    <button class="bh-tab" data-filter="nursing" role="tab" aria-selected="false">Nursing</button>
-    <button class="bh-tab" data-filter="disability" role="tab" aria-selected="false">Disability Services</button>
+<!-- ============ HERO ============ -->
+<section class="bh-hero">
+  <div class="bh-hero-inner">
+    <div class="bh-hero-eyebrow-row">
+      <span class="bh-hero-eyebrow">Kentucky Behavioral Health Career Pathways</span>
+      <span class="bh-draft-badge" aria-label="This is a draft version">DRAFT</span>
+    </div>
+    <h1 class="bh-hero-title">Help Kentucky heal. Build <em>a meaningful career</em> in behavioral health.</h1>
+    <p class="bh-hero-lede">From entry-level certifications to advanced clinical roles, Kentucky needs thousands more behavioral health and disability services workers in the next five years &mdash; and there's a path for you no matter where you're starting.</p>
+    <div class="bh-hero-ctas">
+      <a class="bh-btn bh-btn-primary" href="#bh-pathways-chart">
+        Explore the pathways
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </a>
+      <a class="bh-btn bh-btn-ghost" href="#bh-how-to-pay">See how to pay for training</a>
+    </div>
   </div>
+</section>
+
+<!-- ============ WHY KENTUCKY NEEDS THIS ============ -->
+<section class="bh-why">
+  <div class="bh-why-inner">
+    <div class="bh-section-eyebrow">Why this matters now</div>
+    <h2 class="bh-section-title">Kentucky's behavioral health workforce is <em>in critical demand.</em></h2>
+    <p class="bh-section-intro">Mental health and substance use challenges have stretched our communities thin &mdash; and our workforce hasn't kept up. Whether you want to support people with disabilities, work in addiction recovery, become a counselor, or run a treatment program, Kentucky needs you.</p>
+
+    <div class="bh-why-stats">
+      <div class="bh-why-stat">
+        <div class="bh-why-stat-accent"></div>
+        <div class="bh-why-stat-value">48,790</div>
+        <div class="bh-why-stat-label">Projected behavioral health job openings in Kentucky from 2023&ndash;2028</div>
+        <div class="bh-why-stat-source">Kentucky Center for Statistics</div>
+      </div>
+      <div class="bh-why-stat">
+        <div class="bh-why-stat-accent"></div>
+        <div class="bh-why-stat-prefix">Wages range from</div>
+        <div class="bh-why-stat-value">$36K&ndash;$229K</div>
+        <div class="bh-why-stat-label">Kentucky median wages, from entry-level support roles to advanced practitioners</div>
+      </div>
+      <div class="bh-why-stat">
+        <div class="bh-why-stat-accent"></div>
+        <div class="bh-why-stat-value">4 Pathways</div>
+        <div class="bh-why-stat-label">High school credential, lived experience, associate's/bachelor's, or advanced degree &mdash; every path is valued</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO THIS IS FOR ============ -->
+<section class="bh-who">
+  <div class="bh-who-inner">
+    <div class="bh-section-eyebrow">Built for every Kentuckian</div>
+    <h2 class="bh-section-title">There's <em>a place for you</em> in this work.</h2>
+    <p class="bh-section-intro">A behavioral health career doesn't require a four-year degree &mdash; though one will open more doors. Here's who finds their start here:</p>
+
+    <div class="bh-audiences">
+      <div class="bh-audience">
+        <div class="bh-audience-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+        </div>
+        <h3 class="bh-audience-title">Middle &amp; high school students</h3>
+        <p class="bh-audience-text">Start exploring your future early. See the wages, the schools, and the work itself before you choose a path.</p>
+      </div>
+      <div class="bh-audience">
+        <div class="bh-audience-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <h3 class="bh-audience-title">Career changers</h3>
+        <p class="bh-audience-text">Bring what you've learned. Many roles welcome people switching fields &mdash; especially those with caregiving experience.</p>
+      </div>
+      <div class="bh-audience">
+        <div class="bh-audience-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+        <h3 class="bh-audience-title">People with lived experience</h3>
+        <p class="bh-audience-text">Personal recovery is a strength. Peer support and prevention roles are growing fast across Kentucky.</p>
+      </div>
+      <div class="bh-audience">
+        <div class="bh-audience-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+        </div>
+        <h3 class="bh-audience-title">Educators &amp; counselors</h3>
+        <p class="bh-audience-text">Use this chart in your advising sessions. Every role links to real Kentucky wage and demand data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW TO USE ============ -->
+<section class="bh-howto">
+  <div class="bh-howto-inner">
+    <h2 class="bh-howto-title">How to use the <em>career pathway chart</em> below</h2>
+    <p class="bh-howto-text">The chart maps every behavioral health career in Kentucky by education level and area of focus. Here's how to navigate it.</p>
+    <div class="bh-howto-steps">
+      <div class="bh-howto-step">
+        <div class="bh-step-num">1</div>
+        <div class="bh-step-text"><strong>Pick a starting point.</strong> Each row shows a different education level &mdash; from high school certifications to advanced degrees.</div>
+      </div>
+      <div class="bh-howto-step">
+        <div class="bh-step-num">2</div>
+        <div class="bh-step-text"><strong>Find your area of interest.</strong> Each column groups careers by focus &mdash; nursing, counseling, psychiatry, or disability services.</div>
+      </div>
+      <div class="bh-howto-step">
+        <div class="bh-step-num">3</div>
+        <div class="bh-step-text"><strong>Click any role for details.</strong> See Kentucky wages, demand, education requirements, and what the work involves.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PATHWAYS CHART ============ -->
+<div id="bh-pathways-chart" class="bh-pathways">
 
   <div class="bh-legend" aria-hidden="true">
-    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#6B46C1"></span> HS, Certifications &amp; Credentials</div>
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#A855F7"></span> HS, Certifications &amp; Credentials</div>
     <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#F59E0B"></span> Lived Experience</div>
-    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#3B5BA9"></span> Associates, Bachelors</div>
-    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#16A34A"></span> Advanced Degree</div>
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#6366F1"></span> Associates, Bachelors</div>
+    <div class="bh-legend-item"><span class="bh-legend-dot" style="background:#10B981"></span> Advanced Degree</div>
   </div>
 
   <!-- DIAGRAM (visual pathway map — clickable shortcut into the accordion below) -->
@@ -704,7 +1392,7 @@
   <p class="bh-source">Career pathway data provided by the Kentucky Department for Behavioral Health, Developmental and Intellectual Disabilities. Wage and employment data: Kentucky Center for Statistics (KYSTATS).</p>
 
   <!-- FUNDING PANEL -->
-  <section class="bh-funding" aria-labelledby="bh-funding-title">
+  <section class="bh-funding" id="bh-how-to-pay" aria-labelledby="bh-funding-title">
     <div class="bh-funding-header">
       <div class="bh-funding-icon" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -747,6 +1435,19 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <!-- ============ EXPLORE FUTURE FINDER CTA ============ -->
+  <section class="bh-explore" aria-labelledby="bh-explore-title">
+    <div class="bh-explore-text">
+      <div class="bh-explore-eyebrow">Not sure this is your path?</div>
+      <h3 class="bh-explore-title" id="bh-explore-title">Discover <em>700+ Kentucky careers</em> on Future Finder.</h3>
+      <p class="bh-explore-sub">From healthcare and trades to tech and education, Future Finder helps you explore careers across every industry — with Kentucky wages, training paths, and schools nearby.</p>
+    </div>
+    <a class="bh-explore-cta" href="https://futuriti.org/public/page/future-finder" target="_blank" rel="noopener">
+      Start exploring
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
   </section>
 </div>
 
@@ -850,17 +1551,26 @@
   };
 
   const ROW_META = {
-    'hs': { label: 'HS, Certifications & Credentials', sub: 'Entry level — start after high school', color: '#6B46C1', soft: '#F3E8FF' },
-    'le': { label: 'Lived Experience', sub: 'Personal recovery experience as a strength', color: '#F59E0B', soft: '#FEF3C7' },
-    'ab': { label: 'Associates, Bachelors', sub: '2- and 4-year degrees', color: '#3B5BA9', soft: '#DBEAFE' },
-    'ad': { label: 'Advanced Degree', sub: "Master's, doctoral, licensure", color: '#16A34A', soft: '#DCFCE7' }
+    'hs': { label: 'HS, Certifications & Credentials', sub: 'Entry level — start after high school', color: '#A855F7', soft: '#FAF5FF' },
+    'le': { label: 'Lived Experience', sub: 'Personal recovery experience as a strength', color: '#F59E0B', soft: '#FFF7ED' },
+    'ab': { label: 'Associates, Bachelors', sub: '2- and 4-year degrees', color: '#6366F1', soft: '#EEF2FF' },
+    'ad': { label: 'Advanced Degree', sub: "Master's, doctoral, licensure", color: '#10B981', soft: '#ECFDF5' }
   };
 
   const COL_META = {
-    counseling: 'Social Work & Crisis',
-    psychology: 'Psychiatry',
+    counseling: 'Counseling, Social Work and Crisis',
+    psychology: 'Psychology and Psychiatry',
     nursing: 'Nursing',
     disability: 'Disability Services'
+  };
+
+  // Display versions for the diagram column headers — explicit line breaks
+  // tuned for readability inside the narrow grid columns.
+  const COL_HEAD_DISPLAY = {
+    counseling: 'Counseling,<br>Social Work<br>and Crisis',
+    psychology: 'Psychology<br>and Psychiatry',
+    nursing: 'Nursing',
+    disability: 'Disability<br>Services'
   };
 
   const ICON_INFO = '<svg class="bh-role-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v.01M8 7.5v3"/></svg>';
@@ -949,7 +1659,7 @@
     // Header row: corner cell + 4 column headers
     html += '<div class="bh-d-corner">Education ↓ / Area →</div>';
     Object.keys(COL_META).forEach(function(col) {
-      html += '<div class="bh-d-col-head">' + COL_META[col].replace(/ & /g, ' &amp; ').replace(/, /g, ',<br>') + '</div>';
+      html += '<div class="bh-d-col-head">' + COL_HEAD_DISPLAY[col] + '</div>';
     });
 
     // Data rows
@@ -1029,23 +1739,6 @@
       }
     });
   }
-
-  // Filter tabs
-  const tabs = document.querySelectorAll('.bh-tab');
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      const filter = tab.getAttribute('data-filter');
-      tabs.forEach(function(t) {
-        t.classList.toggle('is-active', t === tab);
-        t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
-      });
-
-      document.querySelectorAll('.bh-mobile-cat').forEach(function(el) {
-        const match = filter === 'all' || el.getAttribute('data-col') === filter;
-        el.style.display = match ? 'block' : 'none';
-      });
-    });
-  });
 
   // ============ DETAIL PANEL ============
   const detailContainer = document.getElementById('bh-detail-container');
@@ -1233,43 +1926,17 @@
   });
 
   /* =====================================================================
-     IFRAME AUTO-RESIZE
-     If this file is embedded inside an iframe (the typical case for
-     Futuriti), it sends its current document height to the parent page
-     via postMessage whenever the content changes. The parent page needs
-     a small matching listener (see embed instructions) that adjusts the
-     iframe height to match. This eliminates blank space on desktop and
-     prevents content cutoff on mobile.
+     SMOOTH SCROLL for hero CTAs ("Explore the pathways" / "See how to pay")
   ===================================================================== */
-  function reportHeight() {
-    if (window.parent === window) return; // not embedded
-    const height = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight
-    );
-    window.parent.postMessage({ type: 'bh-pathways-resize', height: height }, '*');
-  }
-
-  // Report on load
-  if (document.readyState === 'complete') {
-    reportHeight();
-  } else {
-    window.addEventListener('load', reportHeight);
-  }
-
-  // Report whenever content size changes (filter clicks, role clicks,
-  // detail panel open/close, related-paths toggle, mobile accordion)
-  if (typeof ResizeObserver !== 'undefined') {
-    const ro = new ResizeObserver(function() { reportHeight(); });
-    ro.observe(document.body);
-  }
-
-  // Fallback: report on window resize and after small delay (covers font loading)
-  window.addEventListener('resize', reportHeight);
-  setTimeout(reportHeight, 250);
-  setTimeout(reportHeight, 1000);
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 })();
 </script>
 </body>
